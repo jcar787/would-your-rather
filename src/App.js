@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-
+import { Login } from './features/login/';
+import { Home } from './features/home';
+import { NewQuestion } from './features/newQuestion';
+import { LeaderBoard } from './features/leaderboard';
+import { Menu } from './components/menu/';
+import theme from './config/theme';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <Menu />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact={true} component={Home} />
+            <Route path="/login" exact={true} component={Login} />
+            <Route path="/new" exact={true} component={NewQuestion} />
+            <Route path="/leaderboard" exact={true} component={LeaderBoard} />
+          </Switch>
+        </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }
