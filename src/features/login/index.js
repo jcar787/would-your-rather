@@ -1,3 +1,7 @@
 import Login from './Login';
+import loginReducer from './loginReducer';
+import { loginEpic, loginFailEpic, loginSuccessEpic } from './loginEpic';
 
-export { Login };
+const loginEpics = [loginEpic, loginFailEpic, loginSuccessEpic];
+
+export { Login, loginReducer, loginEpics };
