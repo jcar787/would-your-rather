@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { loginAction } from './loginActions';
+import { registerAction } from './registerActions';
 import { FormControl } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -58,14 +58,22 @@ class Login extends Component {
   handleClick = e => {
     e.preventDefault();
     const { dispatch } = this.props;
-    const { username, password } = this.state;
+    const { username, password, confirm } = this.state;
 
-    dispatch(loginAction(username, password));
+    if (password !== confirm) {
+      alert('Password and Confirm Password are not the same');
+    } else {
+      dispatch(registerAction(username, password));
+      this.setState({
+        username: '',
+        password: '',
+        confirm: ''
+      });
+    }
   };
 
   render() {
-    const { classes, loggedIn, loginFailedMessage } = this.props;
-    const { showErrorMessage } = this.state;
+    const { classes, loggedIn } = this.props;
 
     if (loggedIn) {
       return <Redirect to="/" />;
@@ -73,8 +81,6 @@ class Login extends Component {
 
     return (
       <div className={classes.loginForm}>
-        {/*<button onClick={this.handleClick}>Login</button>
-        <button onClick={this.handleLogout}>Logout</button> */}
         <form>
           <FormControl className={classes.block}>
             <Input
@@ -93,7 +99,15 @@ class Login extends Component {
               onChange={e => this.handleChange(e)}
             />
           </FormControl>
-          <br />
+          <FormControl className={classes.block}>
+            <Input
+              id="confirm"
+              type="password"
+              placeholder="Confirm Password"
+              className={classes.input}
+              onChange={e => this.handleChange(e)}
+            />
+          </FormControl>
           <FormControl>
             <Button
               label="Submit"
@@ -103,7 +117,7 @@ class Login extends Component {
               onClick={event => this.handleClick(event)}
               className={classes.submitButton}
             >
-              Login
+              Register
             </Button>
           </FormControl>
         </form>

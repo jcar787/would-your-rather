@@ -7,7 +7,6 @@ import {
 
 const initialState = {};
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case LOGIN_SUCCESS:
       const { user } = action;

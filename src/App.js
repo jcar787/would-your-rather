@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { Login } from './features/login/';
+import { Login, Register } from './features/auth/';
 import { Home } from './features/home';
 import { NewQuestion } from './features/newQuestion';
 import { LeaderBoard } from './features/leaderboard';
@@ -17,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact={true} component={Home} />
             <Route path="/login" exact={true} component={Login} />
+            <Route path="/register" exact={true} component={Register} />
             <Route path="/add" exact={true} component={NewQuestion} />
             <Route path="/leaderboard" exact={true} component={LeaderBoard} />
           </Switch>
