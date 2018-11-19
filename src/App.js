@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Login, Register } from './features/auth/';
 import { Home } from './features/home';
-import { NewQuestion } from './features/newQuestion';
+import { NewQuestion } from './features/question';
 import { LeaderBoard } from './features/leaderboard';
 import { Menu } from './components/menu/';
 import theme from './config/theme';
