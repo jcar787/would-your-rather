@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { AnsweredQuestions, UnansweredQuestions } from '../question';
 
 class Home extends Component {
   constructor(props) {
@@ -7,17 +8,24 @@ class Home extends Component {
   }
 
   render() {
-    console.log(props);
-    return <div>Home Page</div>;
+    console.log(this.props);
+    return (
+      <div>
+        <h4>Home Page</h4>
+        <AnsweredQuestions />
+        <UnansweredQuestions />
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    answers: state.authedUser.answers,
-    ownQuestions: state.authedUser.questions,
+    answers: state.login.authedUser.answers,
+    ownQuestions: state.login.authedUser.questions,
     questions: state.question.questions
   };
 };
 
-export default Home;
+export default connect(mapStateToProps)(Home);

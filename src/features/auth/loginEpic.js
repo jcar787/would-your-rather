@@ -4,19 +4,19 @@ import {
   ignoreElements,
   catchError,
   map,
-  switchMap,
-  finalize
+  switchMap
 } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { LOGIN_SUBMITED, LOGIN_FAILED, LOGIN_SUCCESS } from './loginConstants';
 import { loginUser } from './loginService';
 import { loginFailAction, loginSuccessAction } from './loginActions';
+import { loadQuestionsAction } from '../question/questionActions';
 
 export const loginSuccessEpic = action$ => {
   return action$.pipe(
     ofType(LOGIN_SUCCESS),
     tap(() => console.log('Login succesful')),
-    ignoreElements()
+    map(() => loadQuestionsAction())
   );
 };
 

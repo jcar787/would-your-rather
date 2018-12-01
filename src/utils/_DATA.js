@@ -1,6 +1,7 @@
-let users = {
-  sarahedo: {
-    id: 'sarahedo',
+let users = [
+  {
+    username: 'sarahedo',
+    password: 12345,
     name: 'Sarah Edo',
     avatarURL: '',
     answers: {
@@ -11,8 +12,9 @@ let users = {
     },
     questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
   },
-  tylermcginnis: {
-    id: 'tylermcginnis',
+  {
+    username: 'tylermcginnis',
+    password: 12345,
     name: 'Tyler McGinnis',
     avatarURL: '',
     answers: {
@@ -21,8 +23,9 @@ let users = {
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do']
   },
-  johndoe: {
-    id: 'johndoe',
+  {
+    username: 'johndoe',
+    password: 12345,
     name: 'John Doe',
     avatarURL: '',
     answers: {
@@ -32,7 +35,7 @@ let users = {
     },
     questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r']
   }
-};
+];
 
 let questions = {
   '8xf0y6ziyjabvozdd253nd': {

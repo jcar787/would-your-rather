@@ -5,13 +5,14 @@ export const registerUser = (username, password) => {
     console.log(users);
     let userExists = false;
     if (users.length === 0) {
-      users = [{ username, password }];
+      users = [{ username, password, answers: {}, questions: [] }];
     } else {
       userExists = users.find(user => user.username === username);
       if (!userExists) {
-        users = [...users, { username, password }];
+        users = [...users, { username, password, answers: {}, questions: [] }];
       }
     }
+    console.log(users);
     localStorage.setItem('users', JSON.stringify(users));
     if (userExists) {
       reject('Username already exists');

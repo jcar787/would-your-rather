@@ -4,5 +4,7 @@ import {
   registerReducer as register
 } from '../features/auth';
 
-const rootReducer = combineReducers({ login, register });
+import { questionReducer as question } from '../features/question';
+
+const rootReducer = combineReducers({ login, register, question });
 export default rootReducer;
