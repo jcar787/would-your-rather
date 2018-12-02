@@ -1,10 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { Question } from '../question';
 
-class UnansweredQuestion extends Component {
-  render() {
-    console.log(this.props);
-    return <div>UnansweredQuestions</div>;
-  }
-}
+const styles = theme => {
+  return {
+    questionElement: {
+      marginTop: '10px'
+    },
+    questionUl: {
+      listStyleType: 'none'
+    },
+    title: {
+      marginBottom: '25px'
+    }
+  };
+};
 
-export default UnansweredQuestion;
+const unansweredQuestions = props => {
+  const { questions, classes } = props;
+  console.log(questions);
+  return (
+    <div>
+      <h3 className={classes.title}>Unanswered Questions</h3>
+      <ul className={classes.questionUl}>
+        {questions.map(question => (
+          <li key={question.id} className={classes.questionElement}>
+            <Question question={question} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default withStyles(styles)(unansweredQuestions);

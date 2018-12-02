@@ -23,7 +23,6 @@ export const loginSuccessAction = user => {
 };
 
 export const loginFailAction = error => {
-  console.log(error);
   return {
     type: LOGIN_FAILED,
     error

@@ -8,11 +8,7 @@ import {
 } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { loadQuestions } from './questionService';
-import {
-  ADD_QUESTION,
-  LOAD_QUESTIONS,
-  LOAD_QUESTIONS_RESPONSE
-} from './questionConstants';
+import { ADD_QUESTION, LOAD_QUESTIONS } from './questionConstants';
 import {
   addQuestionAction,
   loadQuestionsResponseAction,
