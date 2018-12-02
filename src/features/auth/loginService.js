@@ -5,6 +5,7 @@ export const loginUser = (username, password) => {
       user => user.username === username && user.password === password
     );
     if (userFound) {
+      localStorage.setItem('authedUser', JSON.stringify(userFound));
       resolve(userFound);
     } else {
       reject('Bad Username or Password');

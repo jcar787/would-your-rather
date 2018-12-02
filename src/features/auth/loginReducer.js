@@ -5,7 +5,9 @@ import {
   LOGOUT
 } from './loginConstants';
 
-const initialState = {};
+const authedUser = JSON.parse(localStorage.getItem('authedUser'));
+
+const initialState = { authedUser };
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
