@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { loginEpics, registerEpics } from '../features/auth';
+import { loginEpics, registerEpics } from '../features/user';
 import { questionEpics } from '../features/question';
 
 const rootEpic = combineEpics(

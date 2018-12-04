@@ -1,5 +1,6 @@
 import {
   ADD_QUESTION,
+  ANSWER_QUESTION,
   LOAD_QUESTIONS,
   LOAD_QUESTIONS_RESPONSE,
   LOAD_QUESTIONS_FAILED
@@ -9,6 +10,20 @@ const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ANSWER_QUESTION:
+      const { id } = action.question;
+      const { username } = action.question;
+      const { option } = action.question;
+      return {
+        ...state,
+        questions: {
+          ...state.questions,
+          [id]: {
+            ...state.questions[id],
+            [option]: [...state.questions[id][option], username]
+          }
+        }
+      };
     case ADD_QUESTION:
       return {
         ...state,
@@ -37,6 +52,7 @@ export default (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+
     default:
       return state;
   }

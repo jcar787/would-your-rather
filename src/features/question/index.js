@@ -4,6 +4,7 @@ import questionReducer from './questionReducer';
 import AnsweredQuestions from './AnsweredQuestions';
 import UnansweredQuestions from './UnansweredQuestions';
 import Question from './Question';
+import QuestionDetail from './QuestionDetail';
 
 const questionEpics = [loadQuestionsEpic];
 
@@ -13,5 +14,6 @@ export {
   questionReducer,
   AnsweredQuestions,
   UnansweredQuestions,
-  Question
+  Question,
+  QuestionDetail
 };

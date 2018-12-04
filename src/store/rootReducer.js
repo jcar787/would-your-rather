@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   loginReducer as login,
   registerReducer as register
-} from '../features/auth';
+} from '../features/user';
 
 import { questionReducer as question } from '../features/question';
 
