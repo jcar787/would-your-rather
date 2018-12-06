@@ -2,12 +2,24 @@ import {
   LOAD_QUESTIONS,
   ADD_QUESTION,
   LOAD_QUESTIONS_RESPONSE,
-  LOAD_QUESTIONS_FAILED
+  LOAD_QUESTIONS_FAILED,
+  ANSWER_QUESTION
 } from './questionConstants';
 
 export const loadQuestionsAction = () => {
   return {
     type: LOAD_QUESTIONS
+  };
+};
+
+export const addAnswerQuestionAction = (username, id, option) => {
+  return {
+    type: ANSWER_QUESTION,
+    question: {
+      id,
+      username,
+      option
+    }
   };
 };
 

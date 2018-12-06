@@ -14,13 +14,19 @@ export default (state = initialState, action) => {
       const { id } = action.question;
       const { username } = action.question;
       const { option } = action.question;
+      console.log(action.question);
+      const { questions } = state;
+      console.log(state);
       return {
         ...state,
         questions: {
-          ...state.questions,
+          ...questions,
           [id]: {
-            ...state.questions[id],
-            [option]: [...state.questions[id][option], username]
+            ...questions[id],
+            [option]: {
+              ...questions[id][option],
+              votes: [...questions[id][option].votes, username]
+            }
           }
         }
       };

@@ -10,6 +10,9 @@ import {
   FormControlLabel
 } from '@material-ui/core';
 
+import { addAnswerAction } from '../user/userActions';
+import { addQuestionAction, addAnswerQuestionAction } from './questionActions';
+
 const styles = theme => {
   return {};
 };
@@ -30,10 +33,22 @@ class QuestionDetail extends Component {
   };
   handleClick = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { answer } = this.state;
+    const { dispatch, question, authedUser } = this.props;
+    console.log('question', question, 'Answer', answer, 'user', authedUser);
     // dispatch and save the answer to the user answer object
     // add userId to votes of the option
     // show the votes of each option only if user answered the question
+
+    // This is for saving the answer to the users answer object
+    // We need the question.id and the answer
+    dispatch(addAnswerAction(question.id, answer));
+    dispatch(addAnswerQuestionAction(authedUser.username, question.id, answer));
+
+    // This second dispatch needs the username, the question.id and the answer
+    // The question.id is for looking one of the possible two answers
+    // The answer that is going concat the authedUser.username to that array
+    //dispatch(addUserToQuestion(authedUser.username, question.id, answer));
   };
 
   render() {
@@ -83,10 +98,11 @@ class QuestionDetail extends Component {
 
 const mapStateToProps = (state, props) => {
   const { id } = props.match.params;
-  console.log(state.question.questions);
   const question = state.question.questions[id];
+  const authedUser = state.login.authedUser;
 
   return {
+    authedUser,
     question
   };
 };
