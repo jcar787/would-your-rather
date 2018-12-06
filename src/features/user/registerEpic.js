@@ -15,21 +15,6 @@ import {
 import { registerUser } from './registerService';
 import { registerSuccessAction, registerFailAction } from './registerActions';
 
-export const registerSuccessEpic = action$ => {
-  return action$.pipe(
-    ofType(REGISTER_SUCCESS),
-    tap(() => console.log('Register succesful')),
-    ignoreElements()
-  );
-};
-
-export const registerFailEpic = action$ => {
-  return action$.pipe(
-    ofType(REGISTER_FAILED),
-    tap(() => console.log('Register Failed')),
-    ignoreElements()
-  );
-};
 export const registerEpic = action$ => {
   return action$.pipe(
     ofType(REGISTER_SUBMITED),

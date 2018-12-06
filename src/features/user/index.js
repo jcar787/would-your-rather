@@ -4,17 +4,10 @@ import loginReducer from './loginReducer';
 import registerReducer from './registerReducer';
 import userReducer from './userReducer';
 import { loginEpic, loginFailEpic, loginSuccessEpic } from './loginEpic';
-import {
-  registerEpic,
-  registerFailEpic,
-  registerSuccessEpic
-} from './registerEpic';
-
-//import { addAnswerEpic } from './userEpics';
+import { registerEpic } from './registerEpic';
 
 const loginEpics = [loginEpic, loginFailEpic, loginSuccessEpic];
-const registerEpics = [registerEpic, registerFailEpic, registerSuccessEpic];
-//const userEpics = [addAnswerEpic];
+const registerEpics = [registerEpic];
 
 export {
   Login,
@@ -24,5 +17,4 @@ export {
   registerReducer,
   registerEpics,
   userReducer
-  //  userEpics
 };
