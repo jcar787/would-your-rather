@@ -15,10 +15,10 @@ export default props => {
         <Typography>Username: {author}</Typography>
         <Typography>Date: {timestamp}</Typography>
         <Typography>
-          <Link to={`/question/${id}`}>Option One: {optionOne.text}</Link>
+          <Link to={`/questions/${id}`}>Option One: {optionOne.text}</Link>
         </Typography>
         <Typography>
-          <Link to={`/question/${id}`}>Option Two: {optionTwo.text}</Link>
+          <Link to={`/questions/${id}`}>Option Two: {optionTwo.text}</Link>
         </Typography>
       </CardContent>
     </Card>

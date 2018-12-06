@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -35,31 +36,25 @@ class QuestionDetail extends Component {
     e.preventDefault();
     const { answer } = this.state;
     const { dispatch, question, authedUser } = this.props;
-    console.log('question', question, 'Answer', answer, 'user', authedUser);
-    // dispatch and save the answer to the user answer object
-    // add userId to votes of the option
-    // show the votes of each option only if user answered the question
 
-    // This is for saving the answer to the users answer object
-    // We need the question.id and the answer
     dispatch(addAnswerAction(question.id, answer));
     dispatch(addAnswerQuestionAction(authedUser.username, question.id, answer));
-
-    // This second dispatch needs the username, the question.id and the answer
-    // The question.id is for looking one of the possible two answers
-    // The answer that is going concat the authedUser.username to that array
-    //dispatch(addUserToQuestion(authedUser.username, question.id, answer));
   };
 
   render() {
-    const { classes, question } = this.props;
+    const { classes, question, questionAnswered } = this.props;
     const { answer } = this.state;
+    const { optionOne, optionTwo } = question;
+    let votesOption1 = optionOne.votes.length;
+    let votesOption2 = optionTwo.votes.length;
+    let total = votesOption1 + votesOption2;
     return (
       <div>
         <h2>Question Detail</h2>
+        <Link to="/">Dashboard</Link>
         <form>
           <FormControl className={classes.block}>
-            <FormLabel>Would You Rather...?</FormLabel>
+            <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
             <RadioGroup
               name="answer"
               onChange={this.handleChange}
@@ -68,12 +63,16 @@ class QuestionDetail extends Component {
               <FormControlLabel
                 value="optionOne"
                 control={<Radio />}
-                label={question.optionOne.text}
+                label={`${optionOne.text} ${
+                  questionAnswered ? votesOption1 : ''
+                }`}
               />
               <FormControlLabel
                 value="optionTwo"
                 control={<Radio />}
-                label={question.optionTwo.text}
+                label={`${optionTwo.text} ${
+                  questionAnswered ? votesOption2 : ''
+                }`}
               />
             </RadioGroup>
           </FormControl>
@@ -100,9 +99,13 @@ const mapStateToProps = (state, props) => {
   const { id } = props.match.params;
   const question = state.question.questions[id];
   const authedUser = state.login.authedUser;
+  const { answers } = authedUser;
+
+  let questionAnswered = answers ? id in answers : false;
 
   return {
     authedUser,
+    questionAnswered,
     question
   };
 };
