@@ -1,11 +1,5 @@
 import { from, of } from 'rxjs';
-import {
-  tap,
-  ignoreElements,
-  catchError,
-  map,
-  switchMap
-} from 'rxjs/operators';
+import { tap, catchError, map, switchMap } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { LOGIN_SUBMITED, LOGIN_FAILED, LOGIN_SUCCESS } from './loginConstants';
 import { loginUser } from './loginService';
@@ -17,14 +11,6 @@ export const loginSuccessEpic = action$ => {
     ofType(LOGIN_SUCCESS),
     tap(() => console.log('Login succesful')),
     map(() => loadQuestionsAction())
-  );
-};
-
-export const loginFailEpic = action$ => {
-  return action$.pipe(
-    ofType(LOGIN_FAILED),
-    tap(() => console.log('Login Failed')),
-    ignoreElements()
   );
 };
 

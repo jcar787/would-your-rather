@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { addAnswerAction } from '../user/userActions';
-import { addQuestionAction, addAnswerQuestionAction } from './questionActions';
+import { addAnswerQuestionAction } from './questionActions';
 
 const styles = theme => {
   return {};
@@ -42,12 +42,19 @@ class QuestionDetail extends Component {
   };
 
   render() {
-    const { classes, question, questionAnswered } = this.props;
+    const { loggedIn, question } = this.props;
+
+    if (!loggedIn || Object.keys(question).length === 0) {
+      return <Redirect to="/login" />;
+    }
+
+    const { classes, questionAnswered } = this.props;
     const { answer } = this.state;
     const { optionOne, optionTwo } = question;
     let votesOption1 = optionOne.votes.length;
     let votesOption2 = optionTwo.votes.length;
     let total = votesOption1 + votesOption2;
+
     return (
       <div>
         <h2>Question Detail</h2>
@@ -83,7 +90,7 @@ class QuestionDetail extends Component {
               fullWidth
               variant="contained"
               color="primary"
-              onClick={event => this.handleClick(event)}
+              onClick={e => this.handleClick(e)}
               className={classes.submitButton}
             >
               Submit
@@ -97,13 +104,14 @@ class QuestionDetail extends Component {
 
 const mapStateToProps = (state, props) => {
   const { id } = props.match.params;
-  const question = state.question.questions[id];
-  const authedUser = state.login.authedUser;
+  const question = state.question.questions ? state.question.questions[id] : {};
+  const authedUser = state.login.authedUser ? state.login.authedUser : {};
   const { answers } = authedUser;
 
   let questionAnswered = answers ? id in answers : false;
 
   return {
+    loggedIn: authedUser ? true : false,
     authedUser,
     questionAnswered,
     question

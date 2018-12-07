@@ -36,13 +36,18 @@ class Home extends Component {
   }
 
   render() {
-    const { authedUser } = this.props;
+    const { loggedIn } = this.props;
 
-    if (!authedUser) {
+    if (!loggedIn) {
       return <Redirect to="/login" />;
     }
 
-    const { answeredQuestions, unansweredQuestions, classes } = this.props;
+    const {
+      authedUser,
+      answeredQuestions,
+      unansweredQuestions,
+      classes
+    } = this.props;
 
     console.log(unansweredQuestions);
     return (
@@ -68,6 +73,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
+  const loggedIn = state.login.authedUser ? true : false;
   const authedUser = state.login.authedUser;
   const userQuestions = authedUser ? authedUser.questions : [];
   const questions = state.question.questions;
@@ -86,6 +92,7 @@ const mapStateToProps = state => {
 
   return {
     authedUser,
+    loggedIn,
     answeredQuestions,
     ownQuestions,
     unansweredQuestions
