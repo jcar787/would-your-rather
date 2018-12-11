@@ -8,7 +8,8 @@ import {
   RadioGroup,
   FormLabel,
   Radio,
-  FormControlLabel
+  FormControlLabel,
+  Typography
 } from '@material-ui/core';
 
 import { addAnswerAction } from '../user/userActions';
@@ -59,44 +60,48 @@ class QuestionDetail extends Component {
       <div>
         <h2>Question Detail</h2>
         <Link to="/">Dashboard</Link>
-        <form>
-          <FormControl className={classes.block}>
-            <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
-            <RadioGroup
-              name="answer"
-              onChange={this.handleChange}
-              value={answer}
-            >
-              <FormControlLabel
-                value="optionOne"
-                control={<Radio />}
-                label={`${optionOne.text} ${
-                  questionAnswered ? votesOption1 : ''
-                }`}
-              />
-              <FormControlLabel
-                value="optionTwo"
-                control={<Radio />}
-                label={`${optionTwo.text} ${
-                  questionAnswered ? votesOption2 : ''
-                }`}
-              />
-            </RadioGroup>
-          </FormControl>
-          <br />
-          <FormControl>
-            <Button
-              label="Submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={e => this.handleClick(e)}
-              className={classes.submitButton}
-            >
-              Submit
-            </Button>
-          </FormControl>
-        </form>
+        {!questionAnswered ? (
+          <form>
+            <FormControl className={classes.block}>
+              <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
+              <RadioGroup
+                name="answer"
+                onChange={this.handleChange}
+                value={answer}
+              >
+                <FormControlLabel
+                  value="optionOne"
+                  control={<Radio />}
+                  label={optionOne.text}
+                />
+                <FormControlLabel
+                  value="optionTwo"
+                  control={<Radio />}
+                  label={optionTwo.text}
+                />
+              </RadioGroup>
+            </FormControl>
+            <br />
+            <FormControl>
+              <Button
+                label="Submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={e => this.handleClick(e)}
+                className={classes.submitButton}
+              >
+                Submit
+              </Button>
+            </FormControl>{' '}
+          </form>
+        ) : (
+          <div>
+            <Typography>Would You Rather...? Total Votes: {total}</Typography>
+            <Typography>{`${optionOne.text} ${votesOption1}`}</Typography>
+            <Typography>{`${optionTwo.text} ${votesOption2}`}</Typography>
+          </div>
+        )}
       </div>
     );
   }
