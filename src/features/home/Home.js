@@ -46,27 +46,34 @@ class Home extends Component {
       authedUser,
       answeredQuestions,
       unansweredQuestions,
-      classes
+      classes,
+      questionsLoaded
     } = this.props;
 
     console.log(unansweredQuestions);
     return (
       <React.Fragment>
-        <h1 className={classes.title}>Home Page</h1>
-        <div className={classes.listHolder}>
-          <div className={classes.questionHolder}>
-            <AnsweredQuestions
-              questions={answeredQuestions}
-              className="questions-box"
-            />
-          </div>
-          <div className={classes.questionHolder}>
-            <UnansweredQuestions
-              questions={unansweredQuestions}
-              className="questions-box"
-            />
-          </div>
-        </div>
+        {questionsLoaded ? (
+          <React.Fragment>
+            <h1 className={classes.title}>Home Page</h1>
+            <div className={classes.listHolder}>
+              <div className={classes.questionHolder}>
+                <AnsweredQuestions
+                  questions={answeredQuestions}
+                  className="questions-box"
+                />
+              </div>
+              <div className={classes.questionHolder}>
+                <UnansweredQuestions
+                  questions={unansweredQuestions}
+                  className="questions-box"
+                />
+              </div>
+            </div>
+          </React.Fragment>
+        ) : (
+          <h3>Loading Questions</h3>
+        )}
       </React.Fragment>
     );
   }
@@ -76,7 +83,7 @@ const mapStateToProps = state => {
   const loggedIn = state.login.authedUser ? true : false;
   const authedUser = state.login.authedUser;
   const userQuestions = authedUser ? authedUser.questions : [];
-  const questions = state.question.questions;
+  const questions = state.question.questions ? state.question.questions : {};
   const ownQuestions = userQuestions.map(questionId => questions[questionId]);
   const answerHolder = authedUser ? authedUser.answers : {};
   const answerKeys = Object.keys(answerHolder);
@@ -95,7 +102,8 @@ const mapStateToProps = state => {
     loggedIn,
     answeredQuestions,
     ownQuestions,
-    unansweredQuestions
+    unansweredQuestions,
+    questionsLoaded: Object.keys(questions).length > 0
   };
 };
 

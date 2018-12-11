@@ -10,13 +10,17 @@ import {
 } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 
-/*export const addAnswerEpic = action$ => {
+export const addAnswerEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ADD_ANSWER),
-    map(({ question: { id, option } }) => {
-      console.log(id, option);
+    tap(() => {
+      console.log(state$);
+      const {
+        login: { authedUser }
+      } = state$.value;
+      console.log(authedUser);
+      localStorage.setItem('authedUser', JSON.stringify(authedUser));
     }),
     ignoreElements()
   );
 };
-*/

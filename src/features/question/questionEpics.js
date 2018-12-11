@@ -35,3 +35,17 @@ export const loadQuestionsEpic = action$ => {
     })
   );
 };
+
+export const addAnswerQuestionEpic = (action$, state$) => {
+  return action$.pipe(
+    ofType(ANSWER_QUESTION),
+    tap(() => {
+      console.log(state$);
+      const {
+        question: { questions }
+      } = state$.value;
+      localStorage.setItem('questions', JSON.stringify(questions));
+    }),
+    ignoreElements()
+  );
+};
