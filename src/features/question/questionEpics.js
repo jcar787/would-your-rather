@@ -14,7 +14,6 @@ import {
   ANSWER_QUESTION
 } from './questionConstants';
 import {
-  addQuestionAction,
   loadQuestionsResponseAction,
   loadQuestionsFailedAction
 } from './questionActions';
@@ -33,6 +32,20 @@ export const loadQuestionsEpic = action$ => {
         )
       );
     })
+  );
+};
+
+export const addQuestionEpic = (action$, state$) => {
+  return action$.pipe(
+    ofType(ADD_QUESTION),
+    tap(() => {
+      console.log(state$);
+      const {
+        question: { questions }
+      } = state$.value;
+      localStorage.setItem('questions', JSON.stringify(questions));
+    }),
+    ignoreElements()
   );
 };
 

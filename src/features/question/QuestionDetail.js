@@ -93,7 +93,7 @@ class QuestionDetail extends Component {
               >
                 Submit
               </Button>
-            </FormControl>{' '}
+            </FormControl>
           </form>
         ) : (
           <div>

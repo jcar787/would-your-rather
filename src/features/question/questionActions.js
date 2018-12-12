@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid/v4';
 import {
   LOAD_QUESTIONS,
   ADD_QUESTION,
@@ -37,7 +38,20 @@ export const loadQuestionsFailedAction = error => {
   };
 };
 
-export const addQuestionAction = question => {
+export const addQuestionAction = (optionOne, optionTwo, author) => {
+  const question = {
+    id: uuidv4(),
+    author,
+    timestamp: Date.now(),
+    optionOne: {
+      text: optionOne,
+      votes: []
+    },
+    optionTwo: {
+      text: optionTwo,
+      votes: []
+    }
+  };
   return {
     type: ADD_QUESTION,
     question
