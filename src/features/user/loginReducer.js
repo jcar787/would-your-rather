@@ -4,7 +4,7 @@ import {
   LOGIN_FAILED,
   LOGOUT
 } from './loginConstants';
-import { ADD_ANSWER } from './userConstants';
+import { ADD_ANSWER, ADD_QUESTION_USER } from './userConstants';
 
 const authedUser = JSON.parse(localStorage.getItem('authedUser'));
 
@@ -34,6 +34,15 @@ export default (state = initialState, action) => {
             ...state.authedUser.answers,
             [action.question.id]: action.question.option
           }
+        }
+      };
+    case ADD_QUESTION_USER:
+      console.log(action);
+      return {
+        ...state,
+        authedUser: {
+          ...state.authedUser,
+          questions: [...state.authedUser.questions, action.questionId]
         }
       };
     default:

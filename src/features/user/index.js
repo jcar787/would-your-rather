@@ -5,11 +5,11 @@ import registerReducer from './registerReducer';
 import userReducer from './userReducer';
 import { loginEpic, loginSuccessEpic } from './loginEpic';
 import { registerEpic } from './registerEpic';
-import { addAnswerEpic } from './userEpics';
+import { addAnswerEpic, addQuestionUserEpic } from './userEpics';
 
 const loginEpics = [loginEpic, loginSuccessEpic];
 const registerEpics = [registerEpic];
-const userEpics = [addAnswerEpic];
+const userEpics = [addAnswerEpic, addQuestionUserEpic];
 
 export {
   Login,

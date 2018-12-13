@@ -1,4 +1,4 @@
-import { from, of } from 'rxjs';
+import { from, of, Observable } from 'rxjs';
 import {
   tap,
   ignoreElements,
@@ -15,8 +15,10 @@ import {
 } from './questionConstants';
 import {
   loadQuestionsResponseAction,
-  loadQuestionsFailedAction
+  loadQuestionsFailedAction,
+  addAnswerQuestionAction
 } from './questionActions';
+import { addQuestionUserAction } from '../user/userActions';
 
 export const loadQuestionsEpic = action$ => {
   return action$.pipe(
@@ -45,7 +47,12 @@ export const addQuestionEpic = (action$, state$) => {
       } = state$.value;
       localStorage.setItem('questions', JSON.stringify(questions));
     }),
-    ignoreElements()
+    switchMap(({ question }) => {
+      return from(Promise.resolve(question)).pipe(
+        map(({ id }) => addQuestionUserAction(id))
+      );
+    })
+    //ignoreElements()
   );
 };
 
