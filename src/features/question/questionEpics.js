@@ -23,6 +23,7 @@ import { addQuestionUserAction } from '../user/userActions';
 export const loadQuestionsEpic = action$ => {
   return action$.pipe(
     ofType(LOAD_QUESTIONS),
+    tap(() => console.log('Loading Questions')),
     switchMap(() => {
       return from(loadQuestions()).pipe(
         map(
@@ -40,6 +41,7 @@ export const addQuestionEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ADD_QUESTION),
     tap(() => {
+      console.log(state$);
       const {
         question: { questions }
       } = state$.value;
@@ -50,7 +52,6 @@ export const addQuestionEpic = (action$, state$) => {
         map(({ id }) => addQuestionUserAction(id))
       );
     })
-    //ignoreElements()
   );
 };
 

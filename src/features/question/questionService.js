@@ -11,6 +11,7 @@ export const loadQuestions = () => {
   if (questions) {
     return Promise.resolve(questions);
   }
+
   return _getQuestions().then(questions => {
     console.log(questions);
     localStorage.setItem('questions', JSON.stringify(questions));

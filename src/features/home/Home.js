@@ -5,6 +5,7 @@ import { AnsweredQuestions, UnansweredQuestions } from '../question';
 import { loadQuestionsAction } from '../question/questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '../../components/menu/Menu';
+import { loadUsersAction } from '../user/userActions';
 
 const styles = theme => {
   return {
@@ -33,6 +34,7 @@ class Home extends Component {
 
     if (authedUser) {
       dispatch(loadQuestionsAction());
+      dispatch(loadUsersAction());
     }
   }
 
