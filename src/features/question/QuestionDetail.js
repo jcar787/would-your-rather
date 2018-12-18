@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Typography
 } from '@material-ui/core';
-
+import Menu from '../../components/menu/Menu';
 import { addAnswerAction } from '../user/userActions';
 import { addAnswerQuestionAction } from './questionActions';
 
@@ -57,7 +57,8 @@ class QuestionDetail extends Component {
     let total = votesOption1 + votesOption2;
 
     return (
-      <div>
+      <React.Fragment>
+        <Menu title="Would You Rather...?" />
         <h2>Question Detail</h2>
         <Link to="/">Dashboard</Link>
         {!questionAnswered ? (
@@ -102,7 +103,7 @@ class QuestionDetail extends Component {
             <Typography>{`${optionTwo.text} ${votesOption2}`}</Typography>
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

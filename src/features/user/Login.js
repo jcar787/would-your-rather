@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { loginAction } from './loginActions';
 import { FormControl } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Menu } from '../../components/menu';
 
 const styles = theme => {
   return {
@@ -72,40 +73,54 @@ class Login extends Component {
     }
 
     return (
-      <div className={classes.loginForm}>
-        <form>
-          <FormControl className={classes.block}>
-            <Input
-              id="username"
-              placeholder="Username"
-              className={classes.input}
-              onChange={e => this.handleChange(e)}
-            />
-          </FormControl>
-          <FormControl className={classes.block}>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Password"
-              className={classes.input}
-              onChange={e => this.handleChange(e)}
-            />
-          </FormControl>
-          <br />
-          <FormControl>
-            <Button
-              label="Submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={event => this.handleClick(event)}
-              className={classes.submitButton}
-            >
-              Login
-            </Button>
-          </FormControl>
-        </form>
-      </div>
+      <React.Fragment>
+        <Menu title="Login" />
+        <div className={classes.loginForm}>
+          <form>
+            <FormControl className={classes.block}>
+              <Input
+                id="username"
+                placeholder="Username"
+                className={classes.input}
+                onChange={e => this.handleChange(e)}
+              />
+            </FormControl>
+            <FormControl className={classes.block}>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Password"
+                className={classes.input}
+                onChange={e => this.handleChange(e)}
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <Button
+                label="Submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={event => this.handleClick(event)}
+                className={classes.submitButton}
+              >
+                Login
+              </Button>
+              <Link to="/register">
+                <Button
+                  label="Submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submitButton}
+                >
+                  Register
+                </Button>
+              </Link>
+            </FormControl>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

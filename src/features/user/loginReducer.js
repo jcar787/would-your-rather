@@ -15,16 +15,15 @@ export default (state = initialState, action) => {
       const { user } = action;
       return {
         ...state,
-        loggingIn: false,
         authedUser: user
       };
     case LOGIN_SUBMITED:
       return { ...state, loggingIn: true };
     case LOGOUT:
-      return { ...state, loggingIn: false, authedUser: null };
+      return { ...state, authedUser: null };
     case LOGIN_FAILED:
       const { error } = action;
-      return { ...state, loggingIn: false, authedUser: null, error };
+      return { ...state, authedUser: null, error };
     case ADD_ANSWER:
       return {
         ...state,

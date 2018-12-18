@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { AnsweredQuestions, UnansweredQuestions } from '../question';
 import { loadQuestionsAction } from '../question/questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Menu from '../../components/menu/Menu';
 
 const styles = theme => {
   return {
@@ -50,12 +51,11 @@ class Home extends Component {
       questionsLoaded
     } = this.props;
 
-    console.log(unansweredQuestions);
     return (
       <React.Fragment>
+        <Menu title="Home" />
         {questionsLoaded ? (
           <React.Fragment>
-            <h1 className={classes.title}>Home Page</h1>
             <div className={classes.listHolder}>
               <div className={classes.questionHolder}>
                 <AnsweredQuestions

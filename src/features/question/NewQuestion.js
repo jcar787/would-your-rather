@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { addQuestionAction, loadQuestionsAction } from './questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Menu } from '../../components/menu';
 
 const styles = theme => {
   return {};
@@ -64,12 +65,16 @@ class NewQuestion extends Component {
   // handle the submit with the method I created
   // clear the form and redirect to dashboard
   render() {
-    const { classes } = this.props;
+    const { classes, isLoggedIn } = this.props;
     const { optionOne, optionTwo } = this.state;
+
+    if (!isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <div>
-        <h2>Add New Question</h2>
-        <Link to="/">Dashboard</Link>
+        <Menu title="New Question" />
         <form>
           <FormControl className={classes.block}>
             <FormLabel>Would You Rather...? </FormLabel>
@@ -117,9 +122,11 @@ const mapStateToProps = state => {
   const {
     authedUser: { username }
   } = state.login;
+  const isLoggedIn = state.login.authedUser ? true : false;
 
   return {
-    username
+    username,
+    isLoggedIn
   };
 };
 

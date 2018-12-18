@@ -12,14 +12,14 @@ const styles = theme => {
       listStyleType: 'none'
     },
     title: {
-      margin: '25px auto'
+      marginBottom: '25px',
+      marginTop: '50px'
     }
   };
 };
 
 const answeredQuestions = props => {
   const { questions, classes } = props;
-  console.log(questions);
   return (
     <div>
       <h3 className={classes.title}>Answered Questions</h3>

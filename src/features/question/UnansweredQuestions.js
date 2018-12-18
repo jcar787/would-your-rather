@@ -11,14 +11,14 @@ const styles = theme => {
       listStyleType: 'none'
     },
     title: {
-      marginBottom: '25px'
+      marginBottom: '25px',
+      marginTop: '50px'
     }
   };
 };
 
 const unansweredQuestions = props => {
   const { questions, classes } = props;
-  console.log(questions);
   return (
     <div>
       <h3 className={classes.title}>Unanswered Questions</h3>

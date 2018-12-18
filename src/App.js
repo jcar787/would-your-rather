@@ -12,7 +12,6 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Menu />
         <BrowserRouter>
           <Switch>
             <Route path="/" exact={true} component={Home} />
