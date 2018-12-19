@@ -59,8 +59,6 @@ class QuestionDetail extends Component {
     return (
       <React.Fragment>
         <Menu title="Would You Rather...?" />
-        <h2>Question Detail</h2>
-        <Link to="/">Dashboard</Link>
         {!questionAnswered ? (
           <form>
             <FormControl className={classes.block}>
