@@ -1,4 +1,5 @@
 import {
+  UPDATE_USER,
   LOAD_USERS,
   LOAD_USERS_RESPONSE,
   LOAD_USERS_FAILED
@@ -6,6 +7,13 @@ import {
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case UPDATE_USER:
+      let { users } = state;
+      users = users.filter(user => user.username !== action.user.username);
+      return {
+        ...state,
+        users: [...users, action.user]
+      };
     case LOAD_USERS:
       return {
         ...state,

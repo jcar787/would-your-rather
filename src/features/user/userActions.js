@@ -3,13 +3,21 @@ import {
   ADD_QUESTION_USER,
   LOAD_USERS,
   LOAD_USERS_RESPONSE,
-  LOAD_USERS_FAILED
+  LOAD_USERS_FAILED,
+  UPDATE_USER
 } from './userConstants';
 
 export const addAnswerAction = (id, option) => {
   return {
     type: ADD_ANSWER,
     question: { id, option }
+  };
+};
+
+export const updateUserAction = user => {
+  return {
+    type: UPDATE_USER,
+    user
   };
 };
 

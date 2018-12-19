@@ -1,4 +1,9 @@
-import { ADD_ANSWER, ADD_QUESTION_USER, LOAD_USERS } from './userConstants';
+import {
+  ADD_ANSWER,
+  ADD_QUESTION_USER,
+  LOAD_USERS,
+  UPDATE_USER
+} from './userConstants';
 import { loadUsers } from './userService';
 
 import { from, of } from 'rxjs';
@@ -10,20 +15,34 @@ import {
   switchMap
 } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
-import { loadUsersResponseAction, loadUsersFailedAction } from './userActions';
+import {
+  loadUsersResponseAction,
+  loadUsersFailedAction,
+  updateUserAction
+} from './userActions';
+
+const saveUserInLocalStorage = state$ => {
+  const {
+    login: { authedUser }
+  } = state$.value;
+  localStorage.setItem('authedUser', JSON.stringify(authedUser));
+};
 
 export const addAnswerEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ADD_ANSWER),
     tap(() => {
-      console.log(state$);
+      saveUserInLocalStorage(state$);
+    }),
+    switchMap(() => {
       const {
         login: { authedUser }
       } = state$.value;
       console.log(authedUser);
-      localStorage.setItem('authedUser', JSON.stringify(authedUser));
-    }),
-    ignoreElements()
+      return from(Promise.resolve(authedUser)).pipe(
+        map(user => updateUserAction(user))
+      );
+    })
   );
 };
 
@@ -32,11 +51,21 @@ export const addQuestionUserEpic = (action$, state$) => {
     ofType(ADD_QUESTION_USER),
     tap(() => {
       console.log(state$);
+      saveUserInLocalStorage(state$);
+    }),
+    ignoreElements()
+  );
+};
+
+export const updateUserEpic = (action$, state$) => {
+  return action$.pipe(
+    ofType(UPDATE_USER),
+    tap(() => {
+      console.log('calling addUserToArrayEpic');
       const {
-        login: { authedUser }
+        user: { users }
       } = state$.value;
-      console.log(authedUser);
-      localStorage.setItem('authedUser', JSON.stringify(authedUser));
+      localStorage.setItem('users', JSON.stringify(users));
     }),
     ignoreElements()
   );

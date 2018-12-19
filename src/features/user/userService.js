@@ -8,8 +8,9 @@ export const loadUsers = () => {
     let users = [];
     if (usersLocalStorage) {
       users = [...usersLocalStorage];
+    } else {
+      users = [...usersFromAPI];
     }
-    users = [...users, ...usersFromAPI];
     localStorage.setItem('users', JSON.stringify(users));
     return users;
   });
