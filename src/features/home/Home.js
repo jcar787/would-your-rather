@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '../../components/menu/Menu';
 import { loadUsersAction } from '../user/userActions';
 import { Button } from '@material-ui/core';
+import AddButton from '../../components/buttons/AddButton';
 
 const styles = theme => {
   return {
@@ -102,6 +103,7 @@ class Home extends Component {
                   />
                 </div>
               )}
+              <AddButton />
             </div>
           </React.Fragment>
         ) : (
