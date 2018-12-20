@@ -17,13 +17,18 @@ import { logoutAction } from '../../features/user/loginActions';
 
 const styles = {
   root: {
-    flexGrow: 1
+    display: 'flex',
+    flexGrow: 1,
+    justifyContent: 'space-around'
   },
   grow: {
     flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
+    marginRight: 20
+  },
+  username: {
     marginRight: 20
   }
 };
@@ -75,7 +80,7 @@ class Menu extends Component {
   };
 
   render() {
-    const { title, classes, isLogged } = this.props;
+    const { title, classes, isLogged, username } = this.props;
     const { menuItems: items, menuOpen, anchorEl } = this.state;
     console.log(items);
     return (
@@ -107,6 +112,9 @@ class Menu extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {title}
             </Typography>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              {username}
+            </Typography>
             {isLogged ? (
               <Button color="inherit" onClick={this.logout}>
                 Logout
@@ -124,9 +132,12 @@ class Menu extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const isLogged = state.login.authedUser ? true : false;
+  const authedUser = state.login.authedUser ? state.login.authedUser : null;
+  const isLogged = authedUser ? true : false;
+  const username = authedUser ? authedUser.username : '';
   console.log(props);
   return {
+    username,
     isLogged
   };
 };
