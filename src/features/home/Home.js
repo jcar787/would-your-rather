@@ -79,6 +79,7 @@ class Home extends Component {
           title={`Home | ${
             areUnansweredShowing ? 'Unanswered Questions' : 'Answered Questions'
           }`}
+          loading={questionsLoaded}
         />
         <div className={classes.flexing}>
           <Button onClick={this.onClick}>{`Show ${

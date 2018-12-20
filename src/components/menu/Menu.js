@@ -5,7 +5,8 @@ import {
   Typography,
   Button,
   Toolbar,
-  AppBar
+  AppBar,
+  LinearProgress
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -80,7 +81,7 @@ class Menu extends Component {
   };
 
   render() {
-    const { title, classes, isLogged, username } = this.props;
+    const { title, classes, isLogged, username, loading } = this.props;
     const { menuItems: items, menuOpen, anchorEl } = this.state;
     console.log(items);
     return (
@@ -125,6 +126,7 @@ class Menu extends Component {
               </Link>
             )}
           </Toolbar>
+          {!loading && <LinearProgress color="secondary" />}
         </AppBar>
       </div>
     );
