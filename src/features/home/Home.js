@@ -6,6 +6,7 @@ import { loadQuestionsAction } from '../question/questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '../../components/menu/Menu';
 import { loadUsersAction } from '../user/userActions';
+import { Button } from '@material-ui/core';
 
 const styles = theme => {
   return {
@@ -20,6 +21,11 @@ const styles = theme => {
       margin: '50px auto',
       marginTop: '100px',
       width: '15%'
+    },
+    flexing: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '25px'
     }
   };
 };
@@ -27,6 +33,9 @@ const styles = theme => {
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      areUnansweredShowing: true
+    };
   }
 
   componentDidMount() {
@@ -38,12 +47,23 @@ class Home extends Component {
     }
   }
 
+  onClick = e => {
+    e.preventDefault();
+    const { areUnansweredShowing } = this.state;
+
+    this.setState({
+      areUnansweredShowing: !areUnansweredShowing
+    });
+  };
+
   render() {
     const { loggedIn } = this.props;
 
     if (!loggedIn) {
       return <Redirect to="/login" />;
     }
+
+    const { areUnansweredShowing } = this.state;
 
     const {
       authedUser,
@@ -55,22 +75,34 @@ class Home extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Home" />
+        <Menu
+          title={`Home | ${
+            areUnansweredShowing ? 'Unanswered Questions' : 'Answered Questions'
+          }`}
+        />
+        <div className={classes.flexing}>
+          <Button onClick={this.onClick}>{`Show ${
+            areUnansweredShowing ? 'Answered Questions' : 'Unanswered Questions'
+          }`}</Button>
+        </div>
         {questionsLoaded ? (
           <React.Fragment>
             <div className={classes.listHolder}>
-              <div className={classes.questionHolder}>
-                <AnsweredQuestions
-                  questions={answeredQuestions}
-                  className="questions-box"
-                />
-              </div>
-              <div className={classes.questionHolder}>
-                <UnansweredQuestions
-                  questions={unansweredQuestions}
-                  className="questions-box"
-                />
-              </div>
+              {areUnansweredShowing ? (
+                <div className={classes.questionHolder}>
+                  <UnansweredQuestions
+                    questions={unansweredQuestions}
+                    className="questions-box"
+                  />
+                </div>
+              ) : (
+                <div className={classes.questionHolder}>
+                  <AnsweredQuestions
+                    questions={answeredQuestions}
+                    className="questions-box"
+                  />
+                </div>
+              )}
             </div>
           </React.Fragment>
         ) : (
