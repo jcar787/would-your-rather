@@ -70,11 +70,13 @@ class Login extends Component {
         password: '',
         confirm: ''
       });
+      this.props.history.push('/login');
     }
   };
 
   render() {
     const { classes, loggedIn, loading } = this.props;
+    console.log();
 
     if (loggedIn) {
       return <Redirect to="/" />;
