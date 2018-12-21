@@ -28,10 +28,10 @@ class LeaderBoard extends Component {
       return <Redirect to="/" />;
     }
 
-    const { users } = this.props;
+    const { users, loading } = this.props;
     return (
       <React.Fragment>
-        <Menu title="Leaderboard" />
+        <Menu title="Leaderboard" loading={loading} />
         <Table>
           <TableHead>
             <TableRow>
@@ -69,10 +69,12 @@ const mapStateToProps = state => {
     const totalB = b.questions.length + Object.keys(b.answers).length;
     return totalB - totalA;
   });
+  const loading = users.length > 0 ? true : false;
 
   return {
     users,
-    loggedIn
+    loggedIn,
+    loading
   };
 };
 

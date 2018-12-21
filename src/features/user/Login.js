@@ -106,17 +106,6 @@ class Login extends Component {
               >
                 Login
               </Button>
-              <Link to="/register">
-                <Button
-                  label="Submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submitButton}
-                >
-                  Register
-                </Button>
-              </Link>
             </FormControl>
           </form>
         </div>

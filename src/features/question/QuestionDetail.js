@@ -16,7 +16,13 @@ import { addAnswerAction } from '../user/userActions';
 import { addAnswerQuestionAction } from './questionActions';
 
 const styles = theme => {
-  return {};
+  return {
+    flexing: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '100px'
+    }
+  };
 };
 
 class QuestionDetail extends Component {
@@ -60,42 +66,44 @@ class QuestionDetail extends Component {
       <React.Fragment>
         <Menu title="Would You Rather...?" loading={loading} />
         {!questionAnswered ? (
-          <form>
-            <FormControl className={classes.block}>
-              <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
-              <RadioGroup
-                name="answer"
-                onChange={this.handleChange}
-                value={answer}
-              >
-                <FormControlLabel
-                  value="optionOne"
-                  control={<Radio />}
-                  label={optionOne.text}
-                />
-                <FormControlLabel
-                  value="optionTwo"
-                  control={<Radio />}
-                  label={optionTwo.text}
-                />
-              </RadioGroup>
-            </FormControl>
-            <br />
-            <FormControl>
-              <Button
-                label="Submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={e => this.handleClick(e)}
-                className={classes.submitButton}
-              >
-                Submit
-              </Button>
-            </FormControl>
-          </form>
+          <div className={classes.flexing}>
+            <form>
+              <FormControl className={classes.block}>
+                <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
+                <RadioGroup
+                  name="answer"
+                  onChange={this.handleChange}
+                  value={answer}
+                >
+                  <FormControlLabel
+                    value="optionOne"
+                    control={<Radio />}
+                    label={optionOne.text}
+                  />
+                  <FormControlLabel
+                    value="optionTwo"
+                    control={<Radio />}
+                    label={optionTwo.text}
+                  />
+                </RadioGroup>
+              </FormControl>
+              <br />
+              <FormControl>
+                <Button
+                  label="Submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={e => this.handleClick(e)}
+                  className={classes.submitButton}
+                >
+                  Submit
+                </Button>
+              </FormControl>
+            </form>
+          </div>
         ) : (
-          <div>
+          <div className={classes.flexing}>
             <Typography>Would You Rather...? Total Votes: {total}</Typography>
             <Typography>{`${optionOne.text} ${votesOption1}`}</Typography>
             <Typography>{`${optionTwo.text} ${votesOption2}`}</Typography>

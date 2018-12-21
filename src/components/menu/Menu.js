@@ -31,6 +31,16 @@ const styles = {
   },
   username: {
     marginRight: 20
+  },
+  link: {
+    textDecoration: 'none',
+    color: '#fff',
+    fontFamily: '"Roboto", "Helvetica", "Arial", "sans-serif"',
+    fontWeight: '500',
+    lineHeight: '1.5',
+    borderRadius: '4px',
+    letterSpacing: '0.02857em',
+    textTransform: 'uppercase'
   }
 };
 
@@ -120,9 +130,13 @@ class Menu extends Component {
               <Button color="inherit" onClick={this.logout}>
                 Logout
               </Button>
-            ) : (
-              <Link to="/login">
+            ) : title === 'Register' ? (
+              <Link to="/login" className={classes.link}>
                 <Button color="inherit">Login</Button>
+              </Link>
+            ) : (
+              <Link to="/register" className={classes.link}>
+                <Button color="inherit">Register</Button>
               </Link>
             )}
           </Toolbar>
