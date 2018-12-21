@@ -49,7 +49,7 @@ class QuestionDetail extends Component {
       return <Redirect to="/login" />;
     }
 
-    const { classes, questionAnswered } = this.props;
+    const { classes, questionAnswered, loading } = this.props;
     const { answer } = this.state;
     const { optionOne, optionTwo } = question;
     let votesOption1 = optionOne.votes.length;
@@ -58,7 +58,7 @@ class QuestionDetail extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Would You Rather...?" />
+        <Menu title="Would You Rather...?" loading={loading} />
         {!questionAnswered ? (
           <form>
             <FormControl className={classes.block}>
@@ -114,11 +114,14 @@ const mapStateToProps = (state, props) => {
 
   let questionAnswered = answers ? id in answers : false;
 
+  const loading = authedUser && question ? true : false;
+
   return {
     loggedIn: authedUser ? true : false,
     authedUser,
     questionAnswered,
-    question
+    question,
+    loading
   };
 };
 

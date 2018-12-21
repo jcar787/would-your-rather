@@ -74,7 +74,7 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, loggedIn } = this.props;
+    const { classes, loggedIn, loading } = this.props;
 
     if (loggedIn) {
       return <Redirect to="/" />;
@@ -82,7 +82,7 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Register" />
+        <Menu title="Register" loading={loading} />
         <div className={classes.loginForm}>
           <form>
             <FormControl className={classes.block}>
@@ -133,7 +133,7 @@ class Login extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.login.authedUser ? true : false,
-    loginFailedMessage: state.login.error ? state.login.error.toString() : ''
+    loading: true
   };
 };
 

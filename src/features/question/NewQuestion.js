@@ -65,7 +65,7 @@ class NewQuestion extends Component {
   // handle the submit with the method I created
   // clear the form and redirect to dashboard
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, loading } = this.props;
     const { optionOne, optionTwo } = this.state;
 
     if (!isLoggedIn) {
@@ -74,7 +74,7 @@ class NewQuestion extends Component {
 
     return (
       <div>
-        <Menu title="New Question" />
+        <Menu title="New Question" loading={loading} />
         <form>
           <FormControl className={classes.block}>
             <FormLabel>Would You Rather...? </FormLabel>
@@ -123,10 +123,12 @@ const mapStateToProps = state => {
     authedUser: { username }
   } = state.login;
   const isLoggedIn = state.login.authedUser ? true : false;
+  const loading = username ? true : false;
 
   return {
     username,
-    isLoggedIn
+    isLoggedIn,
+    loading
   };
 };
 

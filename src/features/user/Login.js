@@ -65,7 +65,7 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, loggedIn, loginFailedMessage } = this.props;
+    const { classes, loggedIn, loginFailedMessage, loading } = this.props;
     const { showErrorMessage } = this.state;
 
     if (loggedIn) {
@@ -74,7 +74,7 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Login" />
+        <Menu title="Login" loading={loading} />
         <div className={classes.loginForm}>
           <form>
             <FormControl className={classes.block}>
@@ -128,7 +128,8 @@ class Login extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.login.authedUser ? true : false,
-    loginFailedMessage: state.login.error ? state.login.error.toString() : ''
+    loginFailedMessage: state.login.error ? state.login.error.toString() : '',
+    loading: true
   };
 };
 
