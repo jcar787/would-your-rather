@@ -9,7 +9,8 @@ import {
   FormLabel,
   Radio,
   FormControlLabel,
-  Typography
+  Typography,
+  LinearProgress
 } from '@material-ui/core';
 import Menu from '../../components/menu/Menu';
 import { addAnswerAction } from '../user/userActions';
@@ -21,6 +22,12 @@ const styles = theme => {
       display: 'flex',
       justifyContent: 'center',
       marginTop: '100px'
+    },
+    result: {
+      marginTop: '25px'
+    },
+    or: {
+      marginTop: '30px'
     }
   };
 };
@@ -65,11 +72,15 @@ class QuestionDetail extends Component {
     return (
       <React.Fragment>
         <Menu title="Would You Rather...?" loading={loading} />
-        {!questionAnswered ? (
-          <div className={classes.flexing}>
+        <div className={classes.flexing}>
+          {!questionAnswered ? (
             <form>
               <FormControl className={classes.block}>
-                <FormLabel>Would You Rather...? Total Votes: {total}</FormLabel>
+                <FormLabel>
+                  <Typography variant="h3">
+                    Would You Rather...? Total Votes: {total}
+                  </Typography>
+                </FormLabel>
                 <RadioGroup
                   name="answer"
                   onChange={this.handleChange}
@@ -101,14 +112,36 @@ class QuestionDetail extends Component {
                 </Button>
               </FormControl>
             </form>
-          </div>
-        ) : (
-          <div className={classes.flexing}>
-            <Typography>Would You Rather...? Total Votes: {total}</Typography>
-            <Typography>{`${optionOne.text} ${votesOption1}`}</Typography>
-            <Typography>{`${optionTwo.text} ${votesOption2}`}</Typography>
-          </div>
-        )}
+          ) : (
+            <div>
+              <Typography variant="h3">
+                Would You Rather...? Total Votes: {total}
+              </Typography>
+              <div>
+                <Typography variant="h4" className={classes.result}>{`${
+                  optionOne.text
+                } ${votesOption1}`}</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={(votesOption1 / total) * 100}
+                />
+              </div>
+              <Typography variant="h4" className={classes.or}>
+                OR
+              </Typography>
+              <div>
+                <Typography variant="h4" className={classes.result}>{`${
+                  optionTwo.text
+                } ${votesOption2}`}</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  color="secondary"
+                  value={(votesOption2 / total) * 100}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </React.Fragment>
     );
   }
