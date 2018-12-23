@@ -2,7 +2,8 @@ import NewQuestion from './NewQuestion';
 import {
   loadQuestionsEpic,
   addAnswerQuestionEpic,
-  addQuestionEpic
+  addQuestionEpic,
+  submitQuestionEpic
 } from './questionEpics';
 import questionReducer from './questionReducer';
 import AnsweredQuestions from './AnsweredQuestions';
@@ -13,7 +14,8 @@ import QuestionDetail from './QuestionDetail';
 const questionEpics = [
   loadQuestionsEpic,
   addAnswerQuestionEpic,
-  addQuestionEpic
+  addQuestionEpic,
+  submitQuestionEpic
 ];
 
 export {

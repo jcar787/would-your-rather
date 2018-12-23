@@ -1,17 +1,19 @@
-import { _getUsers } from '../../utils/_DATA';
+import { _getUsers, _saveQuestionAnswer, saveUsers } from '../../utils/_DATA';
 export const loadUsers = () => {
-  // read users first from localStorage
-  // read users from _DATA
-  // merge the two sets of users
-  return _getUsers().then(usersFromAPI => {
+  return _getUsers().then(users => {
     const usersLocalStorage = JSON.parse(localStorage.getItem('users'));
-    let users = [];
-    if (usersLocalStorage) {
-      users = [...usersLocalStorage];
-    } else {
-      users = [...usersFromAPI];
-    }
+    users = { ...usersLocalStorage, ...users };
+    saveUsers(users);
     localStorage.setItem('users', JSON.stringify(users));
     return users;
+  });
+};
+
+export const saveUser = (authedUser, qid, answer) => {
+  console.log(authedUser, qid, answer);
+  return _saveQuestionAnswer({
+    authedUser: authedUser.username,
+    qid,
+    answer
   });
 };

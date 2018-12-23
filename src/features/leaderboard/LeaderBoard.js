@@ -35,6 +35,7 @@ class LeaderBoard extends Component {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell />
               <TableCell>Username</TableCell>
               <TableCell>Questions</TableCell>
               <TableCell>Questions Answered</TableCell>
@@ -43,10 +44,16 @@ class LeaderBoard extends Component {
           </TableHead>
           <TableBody>
             {users.map(user => {
-              const { username, questions, answers } = user;
+              const { username, questions, answers, avatarURL } = user;
               const total = questions.length + Object.keys(answers).length;
               return (
                 <TableRow key={user.username}>
+                  <TableCell>
+                    <img
+                      src={avatarURL}
+                      style={{ width: '50px', height: '50px' }}
+                    />
+                  </TableCell>
                   <TableCell>{username}</TableCell>
                   <TableCell>{questions.length}</TableCell>
                   <TableCell>{Object.keys(answers).length}</TableCell>
@@ -63,13 +70,17 @@ class LeaderBoard extends Component {
 
 const mapStateToProps = state => {
   const loggedIn = state.login.authedUser ? true : false;
-  let users = state.user.users ? state.user.users : [];
-  users = users.sort((a, b) => {
+  const usersObject = state.user.users ? state.user.users : {};
+  const usersArray = Object.keys(usersObject).reduce((userArray, username) => {
+    return [...userArray, usersObject[username]];
+  }, []);
+  console.log(usersArray);
+  const users = usersArray.sort((a, b) => {
     const totalA = a.questions.length + Object.keys(a.answers).length;
     const totalB = b.questions.length + Object.keys(b.answers).length;
     return totalB - totalA;
   });
-  const loading = users.length > 0 ? true : false;
+  const loading = users ? true : false;
 
   return {
     users,

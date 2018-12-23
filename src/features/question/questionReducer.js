@@ -3,7 +3,8 @@ import {
   ANSWER_QUESTION,
   LOAD_QUESTIONS,
   LOAD_QUESTIONS_RESPONSE,
-  LOAD_QUESTIONS_FAILED
+  LOAD_QUESTIONS_FAILED,
+  SUBMIT_QUESTION
 } from './questionConstants';
 
 const initialState = {};
@@ -14,9 +15,7 @@ export default (state = initialState, action) => {
       const { id } = action.question;
       const { username } = action.question;
       const { option } = action.question;
-      console.log(action.question);
       const { questions } = state;
-      console.log(state);
       return {
         ...state,
         questions: {
@@ -33,10 +32,17 @@ export default (state = initialState, action) => {
     case ADD_QUESTION:
       return {
         ...state,
+        loadingQuestion: null,
         questions: {
           ...state.questions,
           [action.question.id]: { ...action.question }
         }
+      };
+
+    case SUBMIT_QUESTION:
+      return {
+        ...state,
+        loadingQuestion: action.question
       };
 
     case LOAD_QUESTIONS:

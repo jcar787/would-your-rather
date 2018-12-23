@@ -3,27 +3,30 @@ import {
   tap,
   ignoreElements,
   catchError,
+  concat,
   map,
-  switchMap
+  switchMap,
+  mergeMap
 } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { loadQuestions } from './questionService';
 import {
   ADD_QUESTION,
   LOAD_QUESTIONS,
-  ANSWER_QUESTION
+  ANSWER_QUESTION,
+  SUBMIT_QUESTION
 } from './questionConstants';
 import {
   loadQuestionsResponseAction,
   loadQuestionsFailedAction,
-  addAnswerQuestionAction
+  addQuestionAction
 } from './questionActions';
 import { addQuestionUserAction } from '../user/userActions';
+import { _saveQuestion } from '../../utils/_DATA';
 
 export const loadQuestionsEpic = action$ => {
   return action$.pipe(
     ofType(LOAD_QUESTIONS),
-    tap(() => console.log('Loading Questions')),
     switchMap(() => {
       return from(loadQuestions()).pipe(
         map(
@@ -41,15 +44,33 @@ export const addQuestionEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ADD_QUESTION),
     tap(() => {
-      console.log(state$);
       const {
         question: { questions }
       } = state$.value;
       localStorage.setItem('questions', JSON.stringify(questions));
     }),
+    ignoreElements()
+  );
+};
+
+export const submitQuestionEpic = action$ => {
+  return action$.pipe(
+    ofType(SUBMIT_QUESTION),
     switchMap(({ question }) => {
-      return from(Promise.resolve(question)).pipe(
-        map(({ id }) => addQuestionUserAction(id))
+      console.log(question);
+      const savePromise = _saveQuestion(question);
+      return from(savePromise).pipe(
+        tap(question => console.log(question)),
+        switchMap(question =>
+          from(Promise.resolve(question)).pipe(
+            mergeMap(question =>
+              of(
+                addQuestionUserAction(question.id),
+                addQuestionAction(question)
+              )
+            )
+          )
+        )
       );
     })
   );

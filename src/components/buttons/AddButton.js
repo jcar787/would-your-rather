@@ -64,12 +64,8 @@ class FloatingActionButtonZoom extends React.Component {
   };
 
   render() {
-    const { classes, theme, items } = this.props;
+    const { classes } = this.props;
     const { anchorEl, menuOpen } = this.state;
-    const transitionDuration = {
-      enter: theme.transitions.duration.enteringScreen,
-      exit: theme.transitions.duration.leavingScreen
-    };
 
     const fab = {
       color: 'primary',

@@ -21,26 +21,27 @@ import {
   updateUserAction
 } from './userActions';
 
-const saveUserInLocalStorage = state$ => {
-  const {
-    login: { authedUser }
-  } = state$.value;
-  localStorage.setItem('authedUser', JSON.stringify(authedUser));
-};
+import { saveUser } from './userService';
+import { _saveQuestionAnswer } from '../../utils/_DATA';
 
 export const addAnswerEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ADD_ANSWER),
-    tap(() => {
-      saveUserInLocalStorage(state$);
-    }),
-    switchMap(() => {
+    switchMap(({ question: { id: qid, option } }) => {
       const {
         login: { authedUser }
       } = state$.value;
-      console.log(authedUser);
-      return from(Promise.resolve(authedUser)).pipe(
-        map(user => updateUserAction(user))
+      console.log(option);
+      const savePromise = saveUser(authedUser, qid, option);
+      return from(savePromise).pipe(
+        switchMap(() => {
+          const {
+            login: { authedUser }
+          } = state$.value;
+          return from(Promise.resolve(authedUser)).pipe(
+            map(user => updateUserAction(user))
+          );
+        })
       );
     })
   );
@@ -51,7 +52,7 @@ export const addQuestionUserEpic = (action$, state$) => {
     ofType(ADD_QUESTION_USER),
     tap(() => {
       console.log(state$);
-      saveUserInLocalStorage(state$);
+      //saveUserInLocalStorage(state$);
     }),
     ignoreElements()
   );
@@ -61,11 +62,12 @@ export const updateUserEpic = (action$, state$) => {
   return action$.pipe(
     ofType(UPDATE_USER),
     tap(() => {
-      console.log('calling addUserToArrayEpic');
       const {
-        user: { users }
+        user: { users },
+        login: { authedUser }
       } = state$.value;
       localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('authedUser', JSON.stringify(authedUser));
     }),
     ignoreElements()
   );
@@ -74,7 +76,6 @@ export const updateUserEpic = (action$, state$) => {
 export const loadUsersEpic = action$ => {
   return action$.pipe(
     ofType(LOAD_USERS),
-    tap(() => console.log('loading users')),
     switchMap(() => {
       return from(loadUsers()).pipe(
         map(

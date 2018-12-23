@@ -4,7 +4,8 @@ import {
   ADD_QUESTION,
   LOAD_QUESTIONS_RESPONSE,
   LOAD_QUESTIONS_FAILED,
-  ANSWER_QUESTION
+  ANSWER_QUESTION,
+  SUBMIT_QUESTION
 } from './questionConstants';
 
 export const loadQuestionsAction = () => {
@@ -38,20 +39,21 @@ export const loadQuestionsFailedAction = error => {
   };
 };
 
-export const addQuestionAction = (optionOne, optionTwo, author) => {
+export const submitQuestionAction = (optionOneText, optionTwoText, author) => {
   const question = {
-    id: uuidv4(),
     author,
-    timestamp: Date.now(),
-    optionOne: {
-      text: optionOne,
-      votes: []
-    },
-    optionTwo: {
-      text: optionTwo,
-      votes: []
-    }
+    optionOneText,
+    optionTwoText
   };
+
+  return {
+    type: SUBMIT_QUESTION,
+    question
+  };
+};
+
+export const addQuestionAction = question => {
+  console.log(question);
   return {
     type: ADD_QUESTION,
     question

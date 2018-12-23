@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   Typography
 } from '@material-ui/core';
-import { addQuestionAction, loadQuestionsAction } from './questionActions';
+import { submitQuestionAction, loadQuestionsAction } from './questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Menu } from '../../components/menu';
 
@@ -56,7 +56,7 @@ class NewQuestion extends Component {
       return alert('You need to write something for Option Two');
     }
 
-    dispatch(addQuestionAction(optionOne, optionTwo, username));
+    dispatch(submitQuestionAction(optionOne, optionTwo, username));
     this.setState({
       optionOne: '',
       optionTwo: ''
