@@ -74,13 +74,12 @@ const mapStateToProps = state => {
   const usersArray = Object.keys(usersObject).reduce((userArray, username) => {
     return [...userArray, usersObject[username]];
   }, []);
-  console.log(usersArray);
   const users = usersArray.sort((a, b) => {
     const totalA = a.questions.length + Object.keys(a.answers).length;
     const totalB = b.questions.length + Object.keys(b.answers).length;
     return totalB - totalA;
   });
-  const loading = users ? true : false;
+  const loading = users.length > 0 ? true : false;
 
   return {
     users,

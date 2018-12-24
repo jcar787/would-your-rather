@@ -93,7 +93,7 @@ class Menu extends Component {
   render() {
     const { title, classes, isLogged, username, loading } = this.props;
     const { menuItems: items, menuOpen, anchorEl } = this.state;
-    console.log(items);
+    console.log(loading);
     return (
       <div className="root">
         <AppBar>
@@ -147,11 +147,10 @@ class Menu extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = state => {
   const authedUser = state.login.authedUser ? state.login.authedUser : null;
   const isLogged = authedUser ? true : false;
   const username = authedUser ? authedUser.username : '';
-  console.log(props);
   return {
     username,
     isLogged
