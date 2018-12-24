@@ -28,6 +28,9 @@ const styles = theme => {
     },
     or: {
       marginTop: '30px'
+    },
+    graph: {
+      marginTop: '5px'
     }
   };
 };
@@ -124,6 +127,7 @@ class QuestionDetail extends Component {
                 <LinearProgress
                   variant="determinate"
                   value={(votesOption1 / total) * 100}
+                  className={classes.graph}
                 />
               </div>
               <Typography variant="h4" className={classes.or}>
@@ -137,6 +141,7 @@ class QuestionDetail extends Component {
                   variant="determinate"
                   color="secondary"
                   value={(votesOption2 / total) * 100}
+                  className={classes.graph}
                 />
               </div>
             </div>
