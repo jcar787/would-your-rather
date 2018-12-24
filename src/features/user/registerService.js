@@ -12,7 +12,6 @@ export const registerUser = (username, password) => {
     const usersBE = await _getUsers();
     const users = { ...usersBE, ...usersLS };
     saveUsers(users);
-    console.log(users);
     const registerSuccess = saveUser(user);
     if (!registerSuccess) {
       reject('Username already exist');

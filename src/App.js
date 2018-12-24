@@ -6,7 +6,6 @@ import { Login, Register } from './features/user/';
 import { Home } from './features/home';
 import { NewQuestion, QuestionDetail } from './features/question';
 import { LeaderBoard } from './features/leaderboard';
-import { Menu } from './components/menu/';
 import theme from './config/theme';
 class App extends Component {
   render() {

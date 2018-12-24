@@ -66,7 +66,6 @@ class Menu extends Component {
       const { dispatch } = this.props;
       dispatch(logoutAction());
     } else {
-      console.log(this.props);
       const { history } = this.props;
       history.push('/login');
     }
@@ -93,7 +92,6 @@ class Menu extends Component {
   render() {
     const { title, classes, isLogged, username, loading } = this.props;
     const { menuItems: items, menuOpen, anchorEl } = this.state;
-    console.log(loading);
     return (
       <div className="root">
         <AppBar>

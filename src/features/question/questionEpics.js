@@ -1,9 +1,8 @@
-import { from, of, Observable } from 'rxjs';
+import { from, of } from 'rxjs';
 import {
   tap,
   ignoreElements,
   catchError,
-  concat,
   map,
   switchMap,
   mergeMap
@@ -57,10 +56,8 @@ export const submitQuestionEpic = action$ => {
   return action$.pipe(
     ofType(SUBMIT_QUESTION),
     switchMap(({ question }) => {
-      console.log(question);
       const savePromise = _saveQuestion(question);
       return from(savePromise).pipe(
-        tap(question => console.log(question)),
         switchMap(question =>
           from(Promise.resolve(question)).pipe(
             mergeMap(question =>
@@ -80,7 +77,6 @@ export const addAnswerQuestionEpic = (action$, state$) => {
   return action$.pipe(
     ofType(ANSWER_QUESTION),
     tap(() => {
-      console.log(state$);
       const {
         question: { questions }
       } = state$.value;

@@ -36,7 +36,6 @@ export default (state = initialState, action) => {
         }
       };
     case ADD_QUESTION_USER:
-      console.log(action);
       return {
         ...state,
         authedUser: {

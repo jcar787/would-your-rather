@@ -1,9 +1,8 @@
-import { _getUsers, saveUser } from '../../utils/_DATA';
+import { _getUsers } from '../../utils/_DATA';
 
 export const loginUser = (username, password) => {
   return new Promise(async (resolve, reject) => {
-    // check localStorage first if nothing then call the backend
-    const users = JSON.parse(localStorage.getItem('users'));
+    let users = JSON.parse(localStorage.getItem('users'));
     if (!users) {
       users = await _getUsers();
     }

@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  FormControlLabel,
-  Typography
-} from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
+import { Button, FormControl, FormLabel, Input } from '@material-ui/core';
 import { submitQuestionAction, loadQuestionsAction } from './questionActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Menu } from '../../components/menu';

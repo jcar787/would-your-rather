@@ -10,7 +10,6 @@ export const loadUsers = () => {
 };
 
 export const saveUser = (authedUser, qid, answer) => {
-  console.log(authedUser, qid, answer);
   return _saveQuestionAnswer({
     authedUser: authedUser.username,
     qid,

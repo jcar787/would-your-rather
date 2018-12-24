@@ -158,7 +158,6 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
 }
 
 export function _saveQuestion(question) {
-  console.log(question);
   return new Promise((res, rej) => {
     const authedUser = question.author;
     const formattedQuestion = formatQuestion(question);
@@ -184,9 +183,6 @@ export function _saveQuestion(question) {
 
 export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   return new Promise((res, rej) => {
-    console.log(authedUser);
-    console.log(users);
-    console.log('this is the answers', users[authedUser]);
     setTimeout(() => {
       users = {
         ...users,
@@ -217,7 +213,6 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
 
 export const saveUser = user => {
   if (!users[user.username]) {
-    console.log(users);
     users = { ...users, [user.username]: user };
     return true;
   }

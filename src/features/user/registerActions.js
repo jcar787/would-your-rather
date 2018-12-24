@@ -22,7 +22,6 @@ export const registerSuccessAction = message => {
 };
 
 export const registerFailAction = message => {
-  console.log(message);
   return {
     type: REGISTER_FAILED,
     message

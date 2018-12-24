@@ -1,17 +1,7 @@
 import { from, of } from 'rxjs';
-import {
-  tap,
-  ignoreElements,
-  catchError,
-  map,
-  switchMap
-} from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
-import {
-  REGISTER_SUBMITED,
-  REGISTER_SUCCESS,
-  REGISTER_FAILED
-} from './registerConstants';
+import { REGISTER_SUBMITED } from './registerConstants';
 import { registerUser } from './registerService';
 import { registerSuccessAction, registerFailAction } from './registerActions';
 

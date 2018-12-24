@@ -41,7 +41,6 @@ export const loadUsersResponseAction = users => {
 };
 
 export const addQuestionUserAction = questionId => {
-  console.log(questionId);
   return {
     type: ADD_QUESTION_USER,
     questionId

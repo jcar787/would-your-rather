@@ -12,10 +12,6 @@ import {
 import { loadUsersAction } from '../user/userActions';
 
 class LeaderBoard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(loadUsersAction());
@@ -52,6 +48,7 @@ class LeaderBoard extends Component {
                     <img
                       src={avatarURL}
                       style={{ width: '50px', height: '50px' }}
+                      alt={username}
                     />
                   </TableCell>
                   <TableCell>{username}</TableCell>

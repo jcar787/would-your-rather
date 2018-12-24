@@ -1,4 +1,3 @@
-import uuidv4 from 'uuid/v4';
 import {
   LOAD_QUESTIONS,
   ADD_QUESTION,
@@ -53,7 +52,6 @@ export const submitQuestionAction = (optionOneText, optionTwoText, author) => {
 };
 
 export const addQuestionAction = question => {
-  console.log(question);
   return {
     type: ADD_QUESTION,
     question

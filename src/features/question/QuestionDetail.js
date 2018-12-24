@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -44,7 +44,6 @@ class QuestionDetail extends Component {
   }
 
   handleChange = e => {
-    console.log(e.target.value);
     this.setState({
       answer: e.target.value
     });

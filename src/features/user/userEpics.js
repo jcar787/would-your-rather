@@ -1,9 +1,4 @@
-import {
-  ADD_ANSWER,
-  ADD_QUESTION_USER,
-  LOAD_USERS,
-  UPDATE_USER
-} from './userConstants';
+import { ADD_ANSWER, LOAD_USERS, UPDATE_USER } from './userConstants';
 import { loadUsers } from './userService';
 
 import { from, of } from 'rxjs';
@@ -22,7 +17,6 @@ import {
 } from './userActions';
 
 import { saveUser } from './userService';
-import { _saveQuestionAnswer } from '../../utils/_DATA';
 
 export const addAnswerEpic = (action$, state$) => {
   return action$.pipe(
@@ -31,7 +25,6 @@ export const addAnswerEpic = (action$, state$) => {
       const {
         login: { authedUser }
       } = state$.value;
-      console.log(option);
       const savePromise = saveUser(authedUser, qid, option);
       return from(savePromise).pipe(
         switchMap(() => {
@@ -44,17 +37,6 @@ export const addAnswerEpic = (action$, state$) => {
         })
       );
     })
-  );
-};
-
-export const addQuestionUserEpic = (action$, state$) => {
-  return action$.pipe(
-    ofType(ADD_QUESTION_USER),
-    tap(() => {
-      console.log(state$);
-      //saveUserInLocalStorage(state$);
-    }),
-    ignoreElements()
   );
 };
 
