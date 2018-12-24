@@ -4,7 +4,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { registerAction } from './registerActions';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Menu } from '../../components/menu';
 
@@ -46,13 +46,14 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      showErrorMessage: false
+      typing: false
     };
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
+      typing: true
     });
   };
 
@@ -68,15 +69,15 @@ class Login extends Component {
       this.setState({
         username: '',
         password: '',
-        confirm: ''
+        confirm: '',
+        typing: false
       });
-      this.props.history.push('/login');
     }
   };
 
   render() {
-    const { classes, loggedIn, loading } = this.props;
-    console.log();
+    const { classes, loggedIn, loading, message } = this.props;
+    const { typing } = this.state;
 
     if (loggedIn) {
       return <Redirect to="/" />;
@@ -87,6 +88,12 @@ class Login extends Component {
         <Menu title="Register" loading={loading} />
         <div className={classes.loginForm}>
           <form>
+            <Typography variant="h5" className={classes.title}>
+              Register
+            </Typography>
+            <Typography variant="h6" color="secondary">
+              {!typing && `${message}`}
+            </Typography>
             <FormControl className={classes.block}>
               <Input
                 id="username"
@@ -135,7 +142,9 @@ class Login extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.login.authedUser ? true : false,
-    loading: true
+    message: state.register.message ? state.register.message.toString() : '',
+    loading: true,
+    register: state.register.register
   };
 };
 

@@ -8,11 +8,15 @@ const initialState = {};
 export default (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
-      return { ...state, registering: false, error: null };
+      return {
+        ...state,
+        registering: false,
+        message: 'Success. Go To Login Page'
+      };
     case REGISTER_FAILED:
-      return { ...state, registering: false, error: action.error };
+      return { ...state, registering: false, message: action.message };
     case REGISTER_SUBMITED:
-      return { ...state, registering: true };
+      return { ...state, registering: true, message: '' };
     default:
       return state;
   }

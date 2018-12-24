@@ -14,16 +14,17 @@ export const registerAction = (username, password) => {
   };
 };
 
-export const registerSuccessAction = () => {
+export const registerSuccessAction = message => {
   return {
-    type: REGISTER_SUCCESS
+    type: REGISTER_SUCCESS,
+    message
   };
 };
 
-export const registerFailAction = error => {
-  console.log(error);
+export const registerFailAction = message => {
+  console.log(message);
   return {
     type: REGISTER_FAILED,
-    error
+    message
   };
 };

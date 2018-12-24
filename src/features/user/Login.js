@@ -4,7 +4,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { loginAction } from './loginActions';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Menu } from '../../components/menu';
 
@@ -21,6 +21,10 @@ const styles = theme => {
       textAlign: 'center',
       boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
       color: ' #fff'
+    },
+
+    title: {
+      paddingTop: '25px'
     },
 
     block: {
@@ -46,13 +50,14 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      showErrorMessage: false
+      typing: false
     };
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
+      typing: true
     });
   };
 
@@ -62,11 +67,14 @@ class Login extends Component {
     const { username, password } = this.state;
 
     dispatch(loginAction(username, password));
+    this.setState({
+      typing: false
+    });
   };
 
   render() {
     const { classes, loggedIn, loginFailedMessage, loading } = this.props;
-    const { showErrorMessage } = this.state;
+    const { typing } = this.state;
 
     if (loggedIn) {
       return <Redirect to="/" />;
@@ -77,6 +85,12 @@ class Login extends Component {
         <Menu title="Login" loading={loading} />
         <div className={classes.loginForm}>
           <form>
+            <Typography variant="h5" className={classes.title}>
+              Login
+            </Typography>
+            <Typography variant="h6" color="secondary">
+              {!typing && `${loginFailedMessage}`}
+            </Typography>
             <FormControl className={classes.block}>
               <Input
                 id="username"

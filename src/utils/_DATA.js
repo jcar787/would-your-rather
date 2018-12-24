@@ -216,7 +216,8 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
 }
 
 export const saveUser = user => {
-  if (!users[user.id]) {
+  if (!users[user.username]) {
+    console.log(users);
     users = { ...users, [user.username]: user };
     return true;
   }

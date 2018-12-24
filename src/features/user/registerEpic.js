@@ -15,17 +15,15 @@ import {
 import { registerUser } from './registerService';
 import { registerSuccessAction, registerFailAction } from './registerActions';
 
-export const registerEpic = (action$, state$) => {
+export const registerEpic = action$ => {
   return action$.pipe(
     ofType(REGISTER_SUBMITED),
     switchMap(({ user: { username, password } }) => {
       const userPro = registerUser(username, password);
       const ob$ = from(userPro);
       return ob$.pipe(
-        map(user => registerSuccessAction()),
-        catchError(error =>
-          of(error).pipe(map(error => registerFailAction(error)))
-        )
+        map(() => registerSuccessAction()),
+        catchError(error => of(registerFailAction(error)))
       );
     })
   );

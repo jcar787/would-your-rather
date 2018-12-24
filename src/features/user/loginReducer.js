@@ -18,9 +18,9 @@ export default (state = initialState, action) => {
         authedUser: user
       };
     case LOGIN_SUBMITED:
-      return { ...state, loggingIn: true };
+      return { ...state, loggingIn: true, error: '' };
     case LOGOUT:
-      return { ...state, authedUser: null };
+      return { ...state, authedUser: null, error: '' };
     case LOGIN_FAILED:
       const { error } = action;
       return { ...state, authedUser: null, error };
