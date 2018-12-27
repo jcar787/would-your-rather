@@ -119,7 +119,10 @@ const mapStateToProps = state => {
   const answerHolder = authedUser ? authedUser.answers : {};
   const answerKeys = Object.keys(answerHolder);
   const answeredQuestions = answerKeys.map(answerKey => {
-    const date = new Date(questions[answerKey].timestamp).toLocaleDateString();
+    const date =
+      questions[answerKey] && questions[answerKey].timestamp
+        ? new Date(questions[answerKey].timestamp).toLocaleDateString()
+        : new Date().toLocaleDateString();
     return {
       answer: answerHolder[answerKey],
       ...questions[answerKey],
