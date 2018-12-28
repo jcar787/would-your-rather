@@ -6,14 +6,14 @@ import CardContent from '@material-ui/core/CardContent';
 
 export default props => {
   const {
-    question: { id, author, timestamp, optionOne, optionTwo }
+    question: { id, author, date, optionOne, optionTwo }
   } = props;
 
   return (
     <Card className="test">
       <CardContent>
         <Typography>Username: {author}</Typography>
-        <Typography>Date: {timestamp}</Typography>
+        <Typography>Date: {date}</Typography>
         <Typography>
           <Link to={`/questions/${id}`}>Option One: {optionOne.text}</Link>
         </Typography>

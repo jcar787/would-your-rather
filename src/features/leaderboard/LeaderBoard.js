@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Menu } from '../../components/menu';
+import AddButton from '../../components/buttons/AddButton';
 import {
   Table,
   TableHead,
@@ -60,6 +61,7 @@ class LeaderBoard extends Component {
             })}
           </TableBody>
         </Table>
+        <AddButton />
       </React.Fragment>
     );
   }

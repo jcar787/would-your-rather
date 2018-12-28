@@ -7,6 +7,7 @@ import { Home } from './features/home';
 import { NewQuestion, QuestionDetail } from './features/question';
 import { LeaderBoard } from './features/leaderboard';
 import theme from './config/theme';
+import NotFound from './components/notfound';
 class App extends Component {
   render() {
     return (
@@ -23,6 +24,7 @@ class App extends Component {
               exact={true}
               component={QuestionDetail}
             />
+            <Route path="*" component={NotFound} />
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>

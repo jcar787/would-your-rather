@@ -31,6 +31,10 @@ const styles = theme => {
     },
     graph: {
       marginTop: '5px'
+    },
+    image: {
+      width: '35px',
+      height: '35px'
     }
   };
 };
@@ -64,9 +68,15 @@ class QuestionDetail extends Component {
       return <Redirect to="/login" />;
     }
 
-    const { classes, questionAnswered, loading } = this.props;
+    const {
+      classes,
+      questionAnswered,
+      loading,
+      actualAnswer,
+      avatarURL
+    } = this.props;
     const { answer } = this.state;
-    const { optionOne, optionTwo } = question;
+    const { optionOne, optionTwo, author } = question;
     let votesOption1 = optionOne.votes.length;
     let votesOption2 = optionTwo.votes.length;
     let total = votesOption1 + votesOption2;
@@ -80,6 +90,11 @@ class QuestionDetail extends Component {
               <FormControl className={classes.block}>
                 <FormLabel>
                   <Typography variant="h3">
+                    <img
+                      src={`/${avatarURL}`}
+                      alt={author}
+                      className={classes.image}
+                    />{' '}
                     Would You Rather...? Total Votes: {total}
                   </Typography>
                 </FormLabel>
@@ -117,11 +132,18 @@ class QuestionDetail extends Component {
           ) : (
             <div>
               <Typography variant="h3">
+                <img
+                  src={`/${avatarURL}`}
+                  alt={author}
+                  className={classes.image}
+                />{' '}
                 Would You Rather...? Total Votes: {total}
               </Typography>
               <div>
                 <Typography variant="h4" className={classes.result}>{`${
-                  optionOne.text
+                  actualAnswer === 'optionOne'
+                    ? `You voted for: ${optionOne.text}`
+                    : optionOne.text
                 } ${votesOption1}`}</Typography>
                 <LinearProgress
                   variant="determinate"
@@ -134,7 +156,9 @@ class QuestionDetail extends Component {
               </Typography>
               <div>
                 <Typography variant="h4" className={classes.result}>{`${
-                  optionTwo.text
+                  actualAnswer === 'optionTwo'
+                    ? `You voted for: ${optionTwo.text}`
+                    : optionTwo.text
                 } ${votesOption2}`}</Typography>
                 <LinearProgress
                   variant="determinate"
@@ -156,17 +180,24 @@ const mapStateToProps = (state, props) => {
   const question = state.question.questions ? state.question.questions[id] : {};
   const authedUser = state.login.authedUser ? state.login.authedUser : {};
   const { answers } = authedUser;
+  const { avatarURL } =
+    state.user.users && question.author
+      ? state.user.users[question.author]
+      : { avatarURL: '' };
 
   let questionAnswered = answers ? id in answers : false;
 
   const loading = authedUser && question ? true : false;
+  const actualAnswer = questionAnswered ? answers[id] : null;
 
   return {
     loggedIn: authedUser ? true : false,
     authedUser,
     questionAnswered,
     question,
-    loading
+    loading,
+    actualAnswer,
+    avatarURL
   };
 };
 

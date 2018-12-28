@@ -39,7 +39,7 @@ class NewQuestion extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { dispatch, username } = this.props;
+    const { dispatch, username, history } = this.props;
     const { optionOne, optionTwo } = this.state;
 
     if (optionOne === '') {
@@ -54,15 +54,9 @@ class NewQuestion extends Component {
       optionOne: '',
       optionTwo: ''
     });
-
-    // redirect to dashboard
+    history.push('/');
   };
-  // Add two inputs
 
-  // one input called optionOne the other optionTwo
-  // handle the change with the method I created
-  // handle the submit with the method I created
-  // clear the form and redirect to dashboard
   render() {
     const { classes, isLoggedIn, loading } = this.props;
     const { optionOne, optionTwo } = this.state;
@@ -120,10 +114,14 @@ class NewQuestion extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   const {
     authedUser: { username }
-  } = state.login;
-  const isLoggedIn = state.login.authedUser ? true : false;
+  } =
+    state.login && state.login.authedUser
+      ? state.login
+      : { authedUser: { username: null } };
+  const isLoggedIn = state.login && state.login.authedUser ? true : false;
   const loading = username ? true : false;
 
   return {

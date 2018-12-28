@@ -118,17 +118,19 @@ const mapStateToProps = state => {
   const ownQuestions = userQuestions.map(questionId => questions[questionId]);
   const answerHolder = authedUser ? authedUser.answers : {};
   const answerKeys = Object.keys(answerHolder);
-  const answeredQuestions = answerKeys.map(answerKey => {
-    const date =
-      questions[answerKey] && questions[answerKey].timestamp
-        ? new Date(questions[answerKey].timestamp).toLocaleDateString()
-        : new Date().toLocaleDateString();
-    return {
-      answer: answerHolder[answerKey],
-      ...questions[answerKey],
-      timestamp: date
-    };
-  });
+  const answeredQuestions = answerKeys
+    .map(answerKey => {
+      const date =
+        questions[answerKey] && questions[answerKey].timestamp
+          ? new Date(questions[answerKey].timestamp).toLocaleDateString()
+          : new Date().toLocaleDateString();
+      return {
+        answer: answerHolder[answerKey],
+        ...questions[answerKey],
+        date
+      };
+    })
+    .sort((a, b) => b.timestamp - a.timestamp);
   const questionKeys = questions ? Object.keys(questions) : [];
   const unansweredQuestions = questionKeys
     .filter(
@@ -138,8 +140,9 @@ const mapStateToProps = state => {
       const date = new Date(
         questions[questionKey].timestamp
       ).toLocaleDateString();
-      return { ...questions[questionKey], timestamp: date };
-    });
+      return { ...questions[questionKey], date };
+    })
+    .sort((a, b) => b.timestamp - a.timestamp);
 
   return {
     authedUser,
