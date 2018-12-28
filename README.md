@@ -1,6 +1,6 @@
 # Would You Rather Project
 
-##Description
+## Description
 Would You Rather is a game. 
 The game goes like this: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. Choose your favorite option and vote!
 
