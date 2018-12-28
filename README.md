@@ -1,6 +1,10 @@
 # Would You Rather Project
 
-# Installation
+##Description
+Would You Rather is a game. 
+The game goes like this: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. Choose your favorite option and vote!
+
+## Installation
 1. Clone the project 
 2. Run `npm install`
 3. Run `npm start`
