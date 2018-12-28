@@ -73,11 +73,21 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, loggedIn, loginFailedMessage, loading } = this.props;
+    const {
+      classes,
+      loggedIn,
+      loginFailedMessage,
+      loading,
+      location
+    } = this.props;
     const { typing } = this.state;
+    console.log(this.props);
 
     if (loggedIn) {
-      return <Redirect to="/" />;
+      const { prevRoute } = location.state
+        ? location.state
+        : { prevRoute: '/' };
+      return <Redirect to={prevRoute} />;
     }
 
     return (
@@ -128,9 +138,10 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  const loggedIn = state.login.authedUser ? true : false;
   return {
-    loggedIn: state.login.authedUser ? true : false,
+    loggedIn,
     loginFailedMessage: state.login.error ? state.login.error.toString() : '',
     loading: true
   };

@@ -64,8 +64,12 @@ class QuestionDetail extends Component {
   render() {
     const { loggedIn, question } = this.props;
 
-    if (!loggedIn || Object.keys(question).length === 0) {
+    if (!loggedIn) {
       return <Redirect to="/login" />;
+    }
+
+    if (Object.keys(question).length === 0) {
+      return <Redirect to="/error" />;
     }
 
     const {

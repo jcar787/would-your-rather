@@ -22,7 +22,14 @@ class LeaderBoard extends Component {
     const { loggedIn } = this.props;
 
     if (!loggedIn) {
-      return <Redirect to="/" />;
+      return (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { prevRoute: '/leaderboard' }
+          }}
+        />
+      );
     }
 
     const { users, loading } = this.props;
