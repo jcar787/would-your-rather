@@ -65,10 +65,9 @@ class Menu extends Component {
     if (e.currentTarget.textContent === 'Logout') {
       const { dispatch } = this.props;
       dispatch(logoutAction());
-    } else {
-      const { history } = this.props;
-      history.push('/login');
     }
+    const { history } = this.props;
+    history.push({ pathname: '/login', state: { prevRoute: '/' } });
   };
 
   handleClose = e => {

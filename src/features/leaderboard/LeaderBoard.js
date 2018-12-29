@@ -32,10 +32,10 @@ class LeaderBoard extends Component {
       );
     }
 
-    const { users, loading } = this.props;
+    const { users, loading, history } = this.props;
     return (
       <React.Fragment>
-        <Menu title="Leaderboard" loading={loading} />
+        <Menu title="Leaderboard" loading={loading} history={history} />
         <Table>
           <TableHead>
             <TableRow>

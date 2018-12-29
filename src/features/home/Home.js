@@ -70,12 +70,13 @@ class Home extends Component {
       answeredQuestions,
       unansweredQuestions,
       classes,
-      questionsLoaded
+      questionsLoaded,
+      history
     } = this.props;
 
     return (
       <React.Fragment>
-        <Menu title={`Home`} loading={questionsLoaded} />
+        <Menu title={`Home`} loading={questionsLoaded} history={history} />
         <div className={classes.flexing}>
           <Button onClick={this.onClick}>{`Show ${
             areUnansweredShowing ? 'Answered Questions' : 'Unanswered Questions'

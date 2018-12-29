@@ -58,7 +58,7 @@ class NewQuestion extends Component {
   };
 
   render() {
-    const { classes, isLoggedIn, loading } = this.props;
+    const { classes, isLoggedIn, loading, history } = this.props;
     const { optionOne, optionTwo } = this.state;
 
     if (!isLoggedIn) {
@@ -67,7 +67,7 @@ class NewQuestion extends Component {
 
     return (
       <div>
-        <Menu title="New Question" loading={loading} />
+        <Menu title="New Question" loading={loading} history={history} />
         <div className={classes.flexing}>
           <form>
             <FormControl className={classes.block}>

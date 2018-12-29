@@ -77,7 +77,8 @@ class QuestionDetail extends Component {
       questionAnswered,
       loading,
       actualAnswer,
-      avatarURL
+      avatarURL,
+      history
     } = this.props;
     const { answer } = this.state;
     const { optionOne, optionTwo, author } = question;
@@ -87,7 +88,11 @@ class QuestionDetail extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Would You Rather...?" loading={loading} />
+        <Menu
+          title="Would You Rather...?"
+          loading={loading}
+          history={history}
+        />
         <div className={classes.flexing}>
           {!questionAnswered ? (
             <form>

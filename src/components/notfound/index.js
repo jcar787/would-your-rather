@@ -12,10 +12,10 @@ const styles = theme => ({
 });
 
 const NotFound = props => {
-  const { classes } = props;
+  const { classes, history } = props;
   return (
     <React.Fragment>
-      <Menu title="Not Found" loading={true} />
+      <Menu title="Not Found" loading={true} history={history} />
       <div className={classes.flexing}>
         <Typography variant="h1">Not Found</Typography>
       </div>

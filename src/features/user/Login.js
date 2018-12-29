@@ -78,7 +78,8 @@ class Login extends Component {
       loggedIn,
       loginFailedMessage,
       loading,
-      location
+      location,
+      history
     } = this.props;
     const { typing } = this.state;
     console.log(this.props);
@@ -92,7 +93,7 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Login" loading={loading} />
+        <Menu title="Login" loading={loading} history={history} />
         <div className={classes.loginForm}>
           <form>
             <Typography variant="h5" className={classes.title}>

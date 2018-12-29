@@ -76,7 +76,7 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, loggedIn, loading, message } = this.props;
+    const { classes, loggedIn, loading, message, history } = this.props;
     const { typing } = this.state;
 
     if (loggedIn) {
@@ -85,7 +85,7 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <Menu title="Register" loading={loading} />
+        <Menu title="Register" loading={loading} history={history} />
         <div className={classes.loginForm}>
           <form>
             <Typography variant="h5" className={classes.title}>
