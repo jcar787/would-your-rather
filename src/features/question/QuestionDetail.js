@@ -77,7 +77,7 @@ class QuestionDetail extends Component {
       return <Redirect to="/login" />;
     }
 
-    if (Object.keys(question).length === 0 && loadingQuestions === false) {
+    if (!question && loadingQuestions === false) {
       return <Redirect to="/error" />;
     }
 
