@@ -13,8 +13,11 @@ import {
   LinearProgress
 } from '@material-ui/core';
 import Menu from '../../components/menu/Menu';
-import { addAnswerAction } from '../user/userActions';
-import { addAnswerQuestionAction } from './questionActions';
+import { addAnswerAction, loadUsersAction } from '../user/userActions';
+import {
+  addAnswerQuestionAction,
+  loadQuestionsAction
+} from './questionActions';
 
 const styles = theme => {
   return {
@@ -47,6 +50,12 @@ class QuestionDetail extends Component {
     };
   }
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(loadQuestionsAction());
+    dispatch(loadUsersAction());
+  }
+
   handleChange = e => {
     this.setState({
       answer: e.target.value
@@ -62,13 +71,13 @@ class QuestionDetail extends Component {
   };
 
   render() {
-    const { loggedIn, question } = this.props;
+    const { loggedIn, question, loadingQuestions } = this.props;
 
     if (!loggedIn) {
       return <Redirect to="/login" />;
     }
 
-    if (Object.keys(question).length === 0) {
+    if (Object.keys(question).length === 0 && loadingQuestions === false) {
       return <Redirect to="/error" />;
     }
 
@@ -80,107 +89,121 @@ class QuestionDetail extends Component {
       avatarURL,
       history
     } = this.props;
-    const { answer } = this.state;
-    const { optionOne, optionTwo, author } = question;
-    let votesOption1 = optionOne.votes.length;
-    let votesOption2 = optionTwo.votes.length;
-    let total = votesOption1 + votesOption2;
 
-    return (
-      <React.Fragment>
-        <Menu
-          title="Would You Rather...?"
-          loading={loading}
-          history={history}
-        />
-        <div className={classes.flexing}>
-          {!questionAnswered ? (
-            <form>
-              <FormControl className={classes.block}>
-                <FormLabel>
-                  <Typography variant="h3">
-                    <img
-                      src={`/${avatarURL}`}
-                      alt={author}
-                      className={classes.image}
-                    />{' '}
-                    Would You Rather...? Total Votes: {total}
-                  </Typography>
-                </FormLabel>
-                <RadioGroup
-                  name="answer"
-                  onChange={this.handleChange}
-                  value={answer}
-                >
-                  <FormControlLabel
-                    value="optionOne"
-                    control={<Radio />}
-                    label={optionOne.text}
-                  />
-                  <FormControlLabel
-                    value="optionTwo"
-                    control={<Radio />}
-                    label={optionTwo.text}
-                  />
-                </RadioGroup>
-              </FormControl>
-              <br />
-              <FormControl>
-                <Button
-                  label="Submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={e => this.handleClick(e)}
-                  className={classes.submitButton}
-                >
-                  Submit
-                </Button>
-              </FormControl>
-            </form>
-          ) : (
-            <div>
-              <Typography variant="h3">
-                <img
-                  src={`/${avatarURL}`}
-                  alt={author}
-                  className={classes.image}
-                />{' '}
-                Would You Rather...? Total Votes: {total}
-              </Typography>
+    console.log(loadingQuestions);
+    if (loadingQuestions === false) {
+      const { answer } = this.state;
+      const { optionOne, optionTwo, author } = question;
+      let votesOption1 = optionOne.votes.length;
+      let votesOption2 = optionTwo.votes.length;
+      let total = votesOption1 + votesOption2;
+
+      return (
+        <React.Fragment>
+          <Menu
+            title="Would You Rather...?"
+            loading={loading}
+            history={history}
+          />
+          <div className={classes.flexing}>
+            {!questionAnswered ? (
+              <form>
+                <FormControl className={classes.block}>
+                  <FormLabel>
+                    <Typography variant="h3">
+                      <img
+                        src={`/${avatarURL}`}
+                        alt={author}
+                        className={classes.image}
+                      />{' '}
+                      Would You Rather...? Total Votes: {total}
+                    </Typography>
+                  </FormLabel>
+                  <RadioGroup
+                    name="answer"
+                    onChange={this.handleChange}
+                    value={answer}
+                  >
+                    <FormControlLabel
+                      value="optionOne"
+                      control={<Radio />}
+                      label={optionOne.text}
+                    />
+                    <FormControlLabel
+                      value="optionTwo"
+                      control={<Radio />}
+                      label={optionTwo.text}
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <br />
+                <FormControl>
+                  <Button
+                    label="Submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={e => this.handleClick(e)}
+                    className={classes.submitButton}
+                  >
+                    Submit
+                  </Button>
+                </FormControl>
+              </form>
+            ) : (
               <div>
-                <Typography variant="h4" className={classes.result}>{`${
-                  actualAnswer === 'optionOne'
-                    ? `You voted for: ${optionOne.text}`
-                    : optionOne.text
-                } ${votesOption1}`}</Typography>
-                <LinearProgress
-                  variant="determinate"
-                  value={(votesOption1 / total) * 100}
-                  className={classes.graph}
-                />
+                <Typography variant="h3">
+                  <img
+                    src={`/${avatarURL}`}
+                    alt={author}
+                    className={classes.image}
+                  />{' '}
+                  Would You Rather...? Total Votes: {total}
+                </Typography>
+                <div>
+                  <Typography variant="h4" className={classes.result}>{`${
+                    actualAnswer === 'optionOne'
+                      ? `You voted for: ${optionOne.text}`
+                      : optionOne.text
+                  } ${votesOption1}`}</Typography>
+                  <LinearProgress
+                    variant="determinate"
+                    value={(votesOption1 / total) * 100}
+                    className={classes.graph}
+                  />
+                </div>
+                <Typography variant="h4" className={classes.or}>
+                  OR
+                </Typography>
+                <div>
+                  <Typography variant="h4" className={classes.result}>{`${
+                    actualAnswer === 'optionTwo'
+                      ? `You voted for: ${optionTwo.text}`
+                      : optionTwo.text
+                  } ${votesOption2}`}</Typography>
+                  <LinearProgress
+                    variant="determinate"
+                    color="secondary"
+                    value={(votesOption2 / total) * 100}
+                    className={classes.graph}
+                  />
+                </div>
               </div>
-              <Typography variant="h4" className={classes.or}>
-                OR
-              </Typography>
-              <div>
-                <Typography variant="h4" className={classes.result}>{`${
-                  actualAnswer === 'optionTwo'
-                    ? `You voted for: ${optionTwo.text}`
-                    : optionTwo.text
-                } ${votesOption2}`}</Typography>
-                <LinearProgress
-                  variant="determinate"
-                  color="secondary"
-                  value={(votesOption2 / total) * 100}
-                  className={classes.graph}
-                />
-              </div>
-            </div>
-          )}
-        </div>
-      </React.Fragment>
-    );
+            )}
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <Menu
+            title="Would You Rather...?"
+            loading={false}
+            history={history}
+          />
+        </React.Fragment>
+      );
+    }
   }
 }
 
@@ -198,6 +221,10 @@ const mapStateToProps = (state, props) => {
 
   const loading = authedUser && question ? true : false;
   const actualAnswer = questionAnswered ? answers[id] : null;
+  const loadingQuestions =
+    state.question.loading !== null || state.question.loading !== undefined
+      ? state.question.loading
+      : null;
 
   return {
     loggedIn: authedUser ? true : false,
@@ -206,7 +233,8 @@ const mapStateToProps = (state, props) => {
     question,
     loading,
     actualAnswer,
-    avatarURL
+    avatarURL,
+    loadingQuestions
   };
 };
 

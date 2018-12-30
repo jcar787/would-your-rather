@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case ADD_QUESTION:
       return {
         ...state,
-        loadingQuestion: null,
+        loadingQuestion: false,
         questions: {
           ...state.questions,
           [action.question.id]: { ...action.question }

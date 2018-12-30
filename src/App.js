@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Login, Register } from './features/user/';
@@ -8,7 +9,14 @@ import { NewQuestion, QuestionDetail } from './features/question';
 import { LeaderBoard } from './features/leaderboard';
 import theme from './config/theme';
 import NotFound from './components/notfound';
+import { loadQuestionsAction } from './features/question/questionActions';
+import { loadUsersAction } from './features/user/userActions';
 class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(loadQuestionsAction());
+    dispatch(loadUsersAction());
+  }
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -32,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
